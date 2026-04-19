@@ -1,0 +1,19 @@
+# robots.txt para estingenieros.com
+User-agent: *
+Allow: /
+
+# Bloquear archivos y directorios no indexables
+Disallow: /assets/js/
+Disallow: /assets/css/
+Disallow: /.git/
+Disallow: /desktop.ini
+Disallow: /INSTRUCCIONES_GOOGLE_SCRIPT.md
+Disallow: /README.md
+Disallow: /ESTRATEGIA_SEO.md
+
+# Permitir recursos importantes
+Allow: /assets/images/
+Allow: /assets/Maquinas/
+
+# Sitemap
+Sitemap: https://estingenieros.com/sitemap.xml

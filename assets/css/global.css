@@ -1,0 +1,1214 @@
+/* ==========================================================================
+   1. VARIABLES Y RESET BÁSICO
+   ========================================================================== */
+:root {
+  /* Colores Corporativos */
+  --primary: #1b6e3a;
+  --primary-dark: #14522d;
+  --fg: #1a1a1a;
+  --muted: #666;
+  --line: #e5e5e5;
+  --bg: #fff;
+
+  /* Fuentes */
+  --font-body: "Montserrat", system-ui, -apple-system, sans-serif;
+  --font-title: "Oswald", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: .1px;
+  color: var(--fg);
+  background-color: var(--bg);
+  line-height: 1.6;
+  /* Fondo general opcional si lo deseas en toda la web */
+  background-image: url('../images/bg.webp');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* ==========================================================================
+   2. TIPOGRAFÍA Y ELEMENTOS BASE
+   ========================================================================== */
+h1,
+h2,
+h3,
+h4,
+.h1,
+.h2,
+.price {
+  font-family: var(--font-title);
+  font-weight: 700;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  margin-top: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--primary);
+}
+
+.muted,
+.lead,
+p.muted {
+  color: var(--muted);
+}
+
+main {
+  flex: 1;
+  width: 100%;
+}
+
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ==========================================================================
+   3. NAVEGACIÓN (HEADER)
+   ========================================================================== */
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 10px 40px;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--line);
+}
+
+.navbar-logo img {
+  height: 60px;
+  width: auto;
+}
+
+.navbar-nav {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-nav li a {
+  font-family: var(--font-title);
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.navbar-nav li.active a {
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+}
+
+/* ==========================================================================
+   4. COMPONENTES REUTILIZABLES (Botones, Cards)
+   ========================================================================== */
+.btn-primary {
+  display: inline-block;
+  background: var(--primary);
+  color: white;
+  padding: 12px 25px;
+  border-radius: 50px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  display: inline-block;
+  background: white;
+  color: #333;
+  padding: 12px 25px;
+  border-radius: 50px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+  border: 1px solid #e5e5e5;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* Estilo para las tarjetas de servicios y blog */
+.card-item {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.card-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+}
+
+/* ==========================================================================
+   5. FOOTER (Estilo oscuro unificado)
+   ========================================================================== */
+#footer {
+  background-color: #111;
+  color: #fff;
+  padding: 60px 0 20px;
+  margin-top: 50px;
+  border-top: 1px solid #222;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-left p {
+  font-size: 14px;
+  color: #ccc;
+  margin: 8px 0;
+}
+
+.footer-logo {
+  height: 60px;
+  width: auto;
+}
+
+/* ==========================================================================
+   6. RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .navbar-nav {
+    margin-top: 20px;
+    gap: 15px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+}
+
+/* ==========================================================================
+   7. SECCIÓN PROYECTOS (PORTFOLIO)
+   ========================================================================== */
+.page-intro {
+  padding: 80px 0 60px;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.page-intro h1 {
+  font-size: 42px;
+  margin: 0 0 20px;
+}
+
+.page-intro p {
+  font-size: 18px;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.sep-line {
+  width: 60px;
+  height: 3px;
+  background: var(--primary);
+  margin: 30px auto 0;
+}
+
+.project-row {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  padding: 80px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.project-row:last-of-type {
+  border-bottom: none;
+}
+
+.project-row.reverse {
+  flex-direction: row-reverse;
+}
+
+.proj-img-col {
+  flex: 1;
+}
+
+.proj-img-col img {
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  background-color: #fff;
+  display: block;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  transition: transform .3s, box-shadow .3s;
+}
+
+.project-row:hover .proj-img-col img {
+  transform: scale(1.02);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border-color: var(--primary);
+}
+
+.proj-txt-col {
+  flex: 1;
+  padding: 20px 0;
+}
+
+.proj-cat {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-bottom: 12px;
+  font-weight: 600;
+  display: block;
+}
+
+.proj-title {
+  font-size: 32px;
+  margin: 0 0 16px;
+  line-height: 1.2;
+}
+
+.proj-desc {
+  color: var(--muted);
+  font-size: 16px;
+  margin-bottom: 24px;
+  max-width: 480px;
+}
+
+.proj-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--fg);
+  padding-bottom: 2px;
+}
+
+@media (max-width: 850px) {
+
+  .project-row,
+  .project-row.reverse {
+    flex-direction: column;
+    gap: 30px;
+    padding: 50px 0;
+  }
+}
+
+/* ==========================================================================
+   8. SECCIÓN HOME (HERO & SERVICIOS)
+   ========================================================================== */
+.hero {
+  position: relative;
+  text-align: center;
+  padding: 120px 20px;
+  background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.95)),
+    url('../images/back.webp');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.hero h1 {
+  font-size: 56px;
+  margin: 0 0 20px;
+  color: #111;
+  line-height: 1.1;
+}
+
+.hero p {
+  font-size: 20px;
+  color: #333;
+  margin: 0 auto 35px;
+  max-width: 600px;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.grid-home {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin: 60px 0;
+}
+
+.card-home {
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  transition: .3s;
+  background: #fff;
+  display: block;
+}
+
+.card-home:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border-color: var(--primary);
+}
+
+.card-home i {
+  font-size: 32px;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.card-home h3 {
+  font-size: 24px;
+  margin: 0 0 10px;
+}
+
+.card-home p {
+  color: var(--muted);
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.cta-box {
+  background: #111;
+  color: #fff;
+  padding: 50px;
+  border-radius: 12px;
+  text-align: center;
+  margin: 60px 0;
+}
+
+.cta-box h2 {
+  color: #fff;
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.cta-box p {
+  color: #aaa;
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+/* Animaciones de revelado global */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: .6s ease;
+}
+
+[data-reveal].in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 80px 20px;
+  }
+
+  .hero h1 {
+    font-size: 38px;
+  }
+
+  .hero-btns {
+    flex-direction: column;
+  }
+}
+
+/* ==========================================================================
+   9. NAVBAR & NAVIGATION (EXTENDIDO)
+   ========================================================================== */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--line);
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-logo img {
+  height: 42px;
+  display: block;
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 14px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-link {
+  font-family: var(--font-title);
+  font-weight: 500;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  color: var(--fg);
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: all .2s ease;
+}
+
+.nav-link:hover {
+  background: #f6f6f6;
+  color: var(--primary);
+}
+
+.nav-link.active {
+  border: 1px solid var(--primary);
+  background: #e9f5ee;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* DROPDOWN MENU */
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown .nav-link i {
+  font-size: 10px;
+  margin-left: 4px;
+  transition: transform 0.3s ease;
+}
+
+.nav-dropdown:hover .nav-link i {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  margin: 8px 0 0 0;
+  padding: 8px 0;
+  min-width: 200px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.nav-dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-menu li {
+  margin: 0;
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 10px 20px;
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: none;
+  transition: all 0.2s ease;
+}
+
+.dropdown-menu li a:hover {
+  background: #f6f6f6;
+  color: var(--primary);
+  padding-left: 24px;
+}
+
+
+/* HAMBURGUESA (MÓVIL) */
+.nav-toggle-checkbox {
+  display: none;
+}
+
+.nav-toggle {
+  display: none;
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--fg);
+  margin: 4px 0;
+}
+
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: block;
+  }
+
+  .navbar-nav {
+    display: none;
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    top: 70px;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    padding: 15px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .1);
+  }
+
+  .nav-toggle-checkbox:checked~.navbar-nav {
+    display: flex;
+  }
+
+  .nav-link {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Dropdown en móvil */
+  .nav-dropdown {
+    width: 100%;
+  }
+
+  .dropdown-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    margin-top: 8px;
+    padding: 0;
+    display: none;
+  }
+
+  .nav-dropdown:hover .dropdown-menu,
+  .nav-dropdown .dropdown-menu {
+    display: none;
+  }
+
+  .nav-dropdown.active .dropdown-menu {
+    display: block;
+  }
+
+  .dropdown-menu li a {
+    text-align: center;
+    padding: 8px 20px;
+    background: #f9f9f9;
+    margin: 4px 0;
+    border-radius: 8px;
+  }
+
+  .dropdown-menu li a:hover {
+    padding-left: 20px;
+  }
+}
+
+/* ==========================================================================
+   10. FOOTER GLOBAL (ESTILO OSCURO)
+   ========================================================================== */
+#footer {
+  background-color: #000;
+  border-top: 1px solid #1a1a1a;
+  padding: 60px 0;
+  margin-top: 50px;
+  color: #fff;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-left p {
+  margin: 12px 0;
+  font-size: 14px;
+  color: #ccc;
+  display: flex;
+  align-items: center;
+}
+
+.footer-left i {
+  margin-right: 12px;
+  width: 16px;
+  text-align: center;
+}
+
+/* Colores específicos de iconos */
+.footer-left .fa-phone {
+  color: var(--primary);
+}
+
+.footer-left .fa-whatsapp {
+  color: #25D366;
+}
+
+.footer-left .fa-envelope {
+  color: #d63f1f;
+}
+
+.footer-left a {
+  color: #fff;
+  transition: color 0.3s;
+}
+
+.footer-left a:hover {
+  color: var(--primary);
+}
+
+.footer-logo {
+  height: 60px;
+  width: auto;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+}
+
+/* ==========================================================================
+   11. SECCIÓN CONTACTO Y FORMULARIOS
+   ========================================================================== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 60px;
+  margin-top: 40px;
+}
+
+.contact-info h1 {
+  font-size: 42px;
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+
+.contact-info .lead {
+  font-size: 18px;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.info-item i {
+  font-size: 22px;
+  color: var(--primary);
+  margin-top: 4px;
+}
+
+.info-item h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--font-body);
+}
+
+.info-item p {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* Estilos de Formulario Reutilizables */
+.contact-form {
+  background: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 15px;
+  background: #fafafa;
+  transition: all 0.2s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(27, 110, 58, 0.1);
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background: var(--fg);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.btn-submit:hover {
+  background: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(27, 110, 58, 0.2);
+}
+
+@media (max-width: 800px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* ==========================================================================
+   12. ESTILOS DE ARTÍCULOS TÉCNICOS (BLOG)
+   ========================================================================== */
+.article-header {
+  text-align: center;
+  padding: 60px 20px 40px;
+}
+
+.article-meta {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.article-title {
+  font-family: var(--font-title);
+  font-size: 42px;
+  line-height: 1.2;
+  margin: 0 0 20px;
+  color: #111;
+}
+
+.article-date {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.article-hero {
+  width: 100%;
+  height: auto;
+  margin-bottom: 60px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.article-hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.content {
+  font-size: 18px;
+  color: #333;
+  line-height: 1.8;
+}
+
+.content h2 {
+  font-family: var(--font-title);
+  margin-top: 50px;
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #000;
+  border-bottom: 2px solid var(--primary);
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* Caja resaltada para fórmulas o tips */
+.highlight-box {
+  background: #f4f8f5;
+  border-left: 4px solid var(--primary);
+  padding: 30px;
+  margin: 40px 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.highlight-box h3 {
+  margin-top: 0;
+  color: var(--primary);
+  font-family: var(--font-title);
+}
+
+.formula {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111;
+  font-family: 'Courier New', monospace;
+}
+
+/* Tablas Técnicas */
+.table-container {
+  overflow-x: auto;
+  margin: 30px 0;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 500px;
+}
+
+th {
+  background: #f4f4f4;
+  text-align: left;
+  padding: 15px;
+  font-family: var(--font-title);
+  font-weight: 500;
+  border-bottom: 2px solid #ddd;
+}
+
+td {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  font-size: 16px;
+}
+
+tr:nth-child(even) {
+  background: #fafafa;
+}
+
+/* Footer del artículo (CTA) */
+.article-cta {
+  background: #111;
+  color: #fff;
+  padding: 50px;
+  text-align: center;
+  border-radius: 8px;
+  margin-top: 80px;
+}
+
+.article-cta h3 {
+  font-family: var(--font-title);
+  font-size: 24px;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .article-title {
+    font-size: 32px;
+  }
+}
+
+/* ==========================================================================
+   13. ESTILOS ESPECÍFICOS: TORNILLERÍA Y PLANOS
+   ========================================================================== */
+
+/* Caja tipo plano (azul oscuro) */
+.blueprint-box {
+  background: #0d2b45;
+  color: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  margin: 40px 0;
+  text-align: center;
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.2);
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+}
+
+.blueprint-title {
+  font-family: var(--font-title);
+  margin-bottom: 20px;
+  opacity: 0.9;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+.blueprint-box img {
+  max-width: 100%;
+  height: auto;
+  filter: brightness(0) invert(1);
+  /* Pone la imagen en blanco si es negra */
+}
+
+/* Ajuste de listas dentro de los artículos */
+.content ul {
+  padding-left: 20px;
+  margin-bottom: 30px;
+}
+
+.content ul li {
+  margin-bottom: 12px;
+}
+
+/* Estilos para Casos de Éxito / Proyectos Individuales */
+.project-header {
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 20px;
+}
+
+.tech-sheet {
+  background: #fff;
+  border: 1px solid var(--line);
+  padding: 24px;
+  border-radius: 8px;
+  position: sticky;
+  top: 100px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.tech-item {
+  margin-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 12px;
+}
+
+.tech-label {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.tech-value {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   14. PROYECTOS TÉCNICOS (DETALLE)
+   ========================================================================== */
+.project-header {
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 20px;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 50px;
+}
+
+/* Sidebar Ficha Técnica */
+.tech-sheet {
+  background: #fff;
+  border: 1px solid var(--line);
+  padding: 24px;
+  border-radius: 8px;
+  position: sticky;
+  top: 100px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.tech-item {
+  margin-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 12px;
+}
+
+.tech-label {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.tech-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+}
+
+/* Listas de beneficios */
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.feature-list li {
+  margin-bottom: 15px;
+  padding-left: 30px;
+  position: relative;
+}
+
+.feature-list li::before {
+  content: "\f058";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  color: var(--primary);
+  position: absolute;
+  left: 0;
+}
+
+@media (max-width: 800px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tech-sheet {
+    position: static;
+  }
+}
+
+/* --- Estilos para la derecha del footer --- */
+
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Alinea el logo y los iconos a la misma altura */
+  gap: 20px;
+  /* Espacio entre el logo y los iconos */
+  justify-content: flex-end;
+  /* Los empuja hacia el extremo derecho */
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  /* Espacio entre el icono de LinkedIn e Instagram */
+}
+
+.social-link {
+  font-size: 24px;
+  /* Tamaño de los iconos */
+  color: #333;
+  /* Color gris oscuro por defecto */
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+/* Colores de marca al pasar el ratón */
+.social-link .fa-linkedin:hover {
+  color: #0077b5;
+  /* Azul LinkedIn */
+}
+
+.social-link .fa-instagram:hover {
+  color: #e1306c;
+  /* Rosa/Rojo Instagram */
+}
+
+.footer-logo {
+  max-height: 200px;
+  /* Ajusta esto según el tamaño de tu logo */
+  width: auto;
+}

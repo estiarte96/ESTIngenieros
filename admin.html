@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Admin - Control de Horas | EST Ingenieros</title>
+
+    <link rel="icon" href="/assets/images/favicon.webp">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Oswald:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --admin-bg: #0f172a;
+            --admin-card: #1e293b;
+            --admin-accent: #22c55e;
+            /* Verde más brillante y legible */
+            --admin-text: #f8fafc;
+            --admin-muted: #cbd5e1;
+            /* Gris más claro para mejorar contraste */
+            --admin-border: #334155;
+        }
+
+        .admin-body {
+            background: var(--admin-bg);
+            color: var(--admin-text);
+            min-height: 100vh;
+            font-family: var(--font-body);
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--admin-border);
+            padding-bottom: 20px;
+        }
+
+        .admin-header h1 {
+            margin: 0;
+            color: var(--admin-text);
+            font-size: 2rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--admin-card);
+            border: 1px solid var(--admin-border);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--admin-muted);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-control {
+            width: 100%;
+            background-color: #1e293b !important;
+            border: 1px solid var(--admin-border) !important;
+            color: #ffffff !important;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            appearance: none !important;
+            -webkit-appearance: none !important;
+            box-sizing: border-box;
+        }
+
+        .form-control:focus {
+            outline: none !important;
+            border-color: var(--admin-accent) !important;
+            background-color: #1a202c !important;
+            /* Más oscuro al escribir para máximo contraste */
+            color: #ffffff !important;
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2) !important;
+        }
+
+        /* Forzar color de texto en inputs para evitar gris del navegador */
+        input,
+        textarea,
+        select {
+            color: #ffffff !important;
+        }
+
+        select.form-control {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E") !important;
+            background-repeat: no-repeat !important;
+            background-position: right 12px center !important;
+            background-size: 16px !important;
+            padding-right: 40px !important;
+        }
+
+        select.form-control option {
+            background-color: #1e293b !important;
+            color: #ffffff !important;
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus {
+            -webkit-text-fill-color: white !important;
+            -webkit-box-shadow: 0 0 0px 1000px #1a202c inset !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--admin-accent);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            background: #238a49;
+            transform: translateY(-1px);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th {
+            text-align: left;
+            padding: 16px;
+            color: var(--admin-muted);
+            font-weight: 500;
+            border-bottom: 1px solid var(--admin-border);
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid var(--admin-border);
+            color: var(--admin-text);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .total-row td {
+            font-weight: 700;
+            color: var(--admin-accent);
+            font-size: 1.1rem;
+        }
+
+        .export-btn {
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--admin-accent);
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            width: fit-content;
+        }
+
+        .export-btn:hover {
+            background: rgba(34, 197, 94, 0.2);
+        }
+
+        .export-btn i {
+            font-size: 20px;
+        }
+
+        .badge {
+            background: rgba(34, 197, 94, 0.15);
+            /* Basado en el nuevo accent */
+            color: var(--admin-accent);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        ::placeholder {
+            color: #64748b !important;
+            opacity: 1;
+            /* Firefox fix */
+        }
+
+        /* Notification */
+        #notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            display: none;
+            z-index: 2000;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .success {
+            background: #166534;
+            color: white;
+        }
+
+        .error {
+            background: #991b1b;
+            color: white;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body class="admin-body">
+
+    <div data-include="header.html"></div>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1><i class="fa fa-chart-line"></i> Panel de Control - Control de Horas</h1>
+            <div id="status-badge" class="badge">Conectado</div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Form Column -->
+            <div class="card">
+                <h3 style="margin-top: 0; margin-bottom: 25px;">Registrar Horas</h3>
+                <form id="hours-form">
+                    <div class="form-group">
+                        <label for="date">Fecha</label>
+                        <input type="date" id="date" name="date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="project">Proyecto</label>
+                        <select id="project" name="project" class="form-control" required
+                            onchange="checkNewProject(this.value)">
+                            <option value="" disabled selected>Selecciona un proyecto...</option>
+                            <option value="ICT">ICT</option>
+                            <option value="SUDESA">SUDESA</option>
+                            <option value="EST Ingenieros">EST Ingenieros</option>
+                            <option value="Interno / I+D">Interno / I+D</option>
+                            <option value="NEW_PROJECT">+ Añadir nuevo proyecto...</option>
+                        </select>
+                    </div>
+                    <div id="new-project-group" class="form-group"
+                        style="display: none; animation: slideIn 0.3s ease-out;">
+                        <label for="new_project_name">Nombre del nuevo proyecto</label>
+                        <input type="text" id="new_project_name" class="form-control"
+                            placeholder="Escribe el nombre...">
+                    </div>
+                    <div class="form-group">
+                        <label for="details">Detalle del Trabajo</label>
+                        <textarea id="details" name="details" class="form-control" rows="4"
+                            placeholder="Descripción de las tareas..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="hours">Horas</label>
+                        <input type="number" id="hours" name="hours" class="form-control" step="0.5" min="0" required>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <i class="fa fa-save"></i> Guardar Registro
+                    </button>
+                </form>
+            </div>
+
+            <!-- Table Column -->
+            <div class="card">
+                <h3 style="margin-top: 0; margin-bottom: 25px;">Registros Recientes</h3>
+                <div class="table-container">
+                    <table id="hours-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Proyecto</th>
+                                <th>Detalle del Trabajo</th>
+                                <th>Horas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be loaded here -->
+                        </tbody>
+                        <tfoot>
+                            <tr class="total-row">
+                                <td colspan="3" style="text-align: right;">TOTAL:</td>
+                                <td id="total-hours">0</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="export-btn" id="export-googlesheets">
+                    <i class="fa fa-table"></i>
+                    <div>
+                        <strong>Exportar a Google Sheets</strong>
+                        <p style="margin: 2px 0 0; font-size: 11px; color: var(--admin-muted);">Sincronización en tiempo
+                            real activa</p>
+                    </div>
+                    <i class="fa fa-external-link-alt" style="margin-left: auto; font-size: 12px; opacity: 0.5;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification"></div>
+
+    <div data-include="footer.html"></div>
+
+    <script src="assets/js/main.js" defer></script>
+
+    <script>
+        // Configuración
+        // REEMPLAZAR con la URL de tu Web App de Google Apps Script
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwqmZ6FhR3-i6sNS22zWLUW8gwHfRyFkEnnZAqHqyQeYQIQ__THWaiWsTIu8-jLeWjfrQ/exec';
+
+        function checkNewProject(val) {
+            const newGroup = document.getElementById('new-project-group');
+            const newField = document.getElementById('new_project_name');
+            if (val === 'NEW_PROJECT') {
+                newGroup.style.display = 'block';
+                newField.required = true;
+                newField.focus();
+            } else {
+                newGroup.style.display = 'none';
+                newField.required = false;
+            }
+        }
+
+        function loadProjects() {
+            const statusBadge = document.getElementById('status-badge');
+            const select = document.getElementById('project');
+
+            // 1. Cargar proyectos guardados localmente anteriormente
+            const localProjects = JSON.parse(localStorage.getItem('admin_projects') || '[]');
+
+            function updateSelect(projectList) {
+                // Combinar con los locales y eliminar duplicados
+                const combined = [...new Set([...projectList, ...localProjects])];
+
+                select.innerHTML = '<option value="" disabled selected>Selecciona un proyecto...</option>';
+                combined.forEach(proj => {
+                    if (proj && proj.trim()) {
+                        const opt = document.createElement('option');
+                        opt.value = proj;
+                        opt.textContent = proj;
+                        select.appendChild(opt);
+                    }
+                });
+
+                const addOpt = document.createElement('option');
+                addOpt.value = "NEW_PROJECT";
+                addOpt.textContent = "+ Añadir nuevo proyecto...";
+                select.appendChild(addOpt);
+                statusBadge.textContent = "Panel de Control Activo";
+            }
+
+            // Inicializar con lo que tengamos (locales o vacío)
+            updateSelect(['ICT', 'SUDESA', 'EST Ingenieros']);
+
+            // 2. Intentar actualizar desde Google en segundo plano
+            window.handleProjectList = function (projects) {
+                if (Array.isArray(projects)) {
+                    updateSelect(projects);
+                    statusBadge.textContent = "Sincronizado con Sheets";
+                }
+            };
+
+            const script = document.createElement('script');
+            script.src = `${SCRIPT_URL}?action=getProjects&callback=handleProjectList&v=${Date.now()}`;
+            // No ponemos onerror para no ensuciar la consola si hay bloqueos de AdBlock
+            document.body.appendChild(script);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').value = today;
+
+            loadRecords();
+            loadProjects();
+
+            const form = document.getElementById('hours-form');
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const submitBtn = form.querySelector('.btn-submit');
+                const originalBtnText = submitBtn.innerHTML;
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Guardando...';
+
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+
+                // Si es un proyecto nuevo, sobreescribir el ID con el nombre escrito
+                if (data.project === 'NEW_PROJECT') {
+                    const newProjName = document.getElementById('new_project_name').value;
+                    data.project = newProjName;
+
+                    // Guardar en la lista de proyectos locales para que aparezca en el desplegable la próxima vez
+                    let localProjects = JSON.parse(localStorage.getItem('admin_projects') || '[]');
+                    if (!localProjects.includes(newProjName)) {
+                        localProjects.push(newProjName);
+                        localStorage.setItem('admin_projects', JSON.stringify(localProjects));
+                    }
+                }
+
+                try {
+                    // Guardar localmente primero para feedback instantáneo
+                    saveLocalRecord(data);
+
+                    // Enviar a Google Sheets
+                    const response = await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        cache: 'no-cache',
+                        headers: { 'Content-Type': 'text/plain' }, // Cambiado para mayor compatibilidad
+                        body: JSON.stringify(data)
+                    });
+
+                    showNotification('Registro guardado correctamente', 'success');
+                    form.reset();
+                    document.getElementById('date').value = today;
+                    loadRecords();
+                    loadProjects(); // Recargar proyectos por si se añadió uno nuevo
+                } catch (error) {
+                    console.error('Error:', error);
+                    showNotification('Error al conectar con Google Sheets', 'error');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                }
+            });
+        });
+
+        function saveLocalRecord(data) {
+            let records = JSON.parse(localStorage.getItem('study_hours') || '[]');
+            records.push(data);
+            localStorage.setItem('study_hours', JSON.stringify(records));
+        }
+
+        function loadRecords() {
+            const tbody = document.querySelector('#hours-table tbody');
+            const records = JSON.parse(localStorage.getItem('study_hours') || '[]');
+
+            tbody.innerHTML = '';
+            let total = 0;
+
+            // Sort by date descending
+            records.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            records.forEach(record => {
+                const row = document.createElement('tr');
+                const formattedDate = new Date(record.date).toLocaleDateString('es-ES');
+                total += parseFloat(record.hours);
+
+                row.innerHTML = `
+          <td>${formattedDate}</td>
+          <td><span class="badge">${record.project}</span></td>
+          <td>${record.details}</td>
+          <td style="font-weight: 600;">${record.hours}</td>
+        `;
+                tbody.appendChild(row);
+            });
+
+            document.getElementById('total-hours').textContent = total;
+        }
+
+        function showNotification(msg, type) {
+            const notif = document.getElementById('notification');
+            notif.textContent = msg;
+            notif.className = type;
+            notif.style.display = 'block';
+
+            setTimeout(() => {
+                notif.style.display = 'none';
+            }, 3000);
+        }
+
+        document.getElementById('export-googlesheets').addEventListener('click', () => {
+            // Si el usuario ya configuró el Script URL, abrir el Google Sheet (opcional)
+            // window.open('https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/edit', '_blank');
+            showNotification('Sincronización activa. Los datos se guardan automáticament al añadir.', 'success');
+        });
+    </script>
+</body>
+
+</html>

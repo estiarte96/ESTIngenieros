@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TBZK1N6QGS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TBZK1N6QGS');
+  </script>
+  <link rel="icon" type="image/png" href="../../assets/images/favicon.webp">
+  <meta name="theme-color" content="#1b6e3a">
+  <meta charset="utf-8" />
+  <title>Transportador Sincronizado – EST Ingenieros</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet" href="../../assets/css/global.css">
+
+  <style>
+    /* Estilos exclusivos del carrusel y sidebar que no están en el global */
+    .project-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 50px; }
+    .feature-list { list-style: none; padding: 0; }
+    .feature-list li { margin-bottom: 15px; padding-left: 25px; position: relative; }
+    .feature-list li::before { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--primary); position: absolute; left: 0; }
+    
+    .carousel-container { position: relative; width: 100%; margin: 30px 0; overflow: hidden; border-radius: 8px; border: 1px solid #eee; background: #fff; aspect-ratio: 16/9; }
+    .carousel-slide { display: flex; transition: transform 0.5s ease-in-out; height: 100%; }
+    .carousel-slide img { width: 100%; height: 100%; object-fit: contain; flex-shrink: 0; }
+    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; padding: 15px 10px; cursor: pointer; z-index: 10; }
+    .carousel-btn:hover { background: var(--primary); }
+    .carousel-btn.next { right: 0; }
+
+    @media (max-width: 800px) { .project-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <div data-include="../../header.html"></div>
+
+  <main class="wrap">
+    <header class="project-header">
+      <div class="muted" style="font-size: 13px; margin-bottom: 10px;">
+        <a href="../index.html"">← VOLVER A PROYECTOS</a> / ARTES GRÁFICAS
+      </div>
+      <h1 class="h1">Transportador Sincronizado para Serigrafía</h1>
+      <p class="lead">Modernización de salida de túnel con control por encoder y succión.</p>
+    </header>
+
+    <div class="project-grid">
+      <section>
+        <div class="card-item" style="padding: 0; overflow: hidden; margin-bottom: 30px;">
+          <img src="Images/PF2-001.webp" alt="Módulo transportador" style="width: 100%; display: block;">
+        </div>
+
+        <h2 class="h2">El Reto: Superar la Tecnología de Levas</h2>
+        <p>Sustitución de un equipo analógico con accionamiento por leva mecánica. El objetivo: ganar flexibilidad, reducir el mantenimiento y digitalizar la sincronización con la línea principal.</p>
+        <div class="card-item" style="padding: 0; overflow: hidden; margin-bottom: 30px;">
+          <img src="Images/PF2-002.webp" alt="Módulo transportador" style="width: 100%; display: block;">
+        </div>
+        <h2 class="h2">La Solución Técnica</h2>
+        <ul class="feature-list">
+          <li><strong>Sincronización Electrónica:</strong> Lectura de posición mediante encoder para un ajuste milimétrico con el túnel de secado.</li>
+          <li><strong>Adherencia por Vacío:</strong> Turbina integrada para evitar el desplazamiento de láminas ligeras.</li>
+          <li><strong>Ergonomía:</strong> Mesa abatible para facilitar el acceso a la máquina principal.</li>
+        </ul>
+
+        <div class="carousel-container">
+          <div class="carousel-slide" id="carouselSlide"></div>
+          <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+          <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+      </section>
+
+      <aside>
+        <div class="tech-sheet">
+          <div class="tech-item"><span class="tech-label">Sector</span><div class="tech-value">Serigrafía Industrial</div></div>
+          <div class="tech-item"><span class="tech-label">Control</span><div class="tech-value">Sincronización por Encoder</div></div>
+          <div class="tech-item"><span class="tech-label">Extra</span><div class="tech-value">Succión por Vacío</div></div>
+          <div class="tech-item"><span class="tech-label">Año</span><div class="tech-value">2025</div></div>
+          
+          <div class="cta-box" style="background: var(--primary); color: white; border: none;">
+            <p style="margin-bottom: 10px; font-weight: 600;">¿Buscas una solución similar?</p>
+            <a href="../../contacto.html""" class="btn-primary" style="background: white; color: black; width: 100%; text-align: center;">Contactar</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div data-include="../../footer.html"></div>
+
+  <script src="../../assets/js/main.js" defer></script>
+  <script>
+    // Lógica específica del carrusel de imágenes
+    const slideContainer = document.getElementById('carouselSlide');
+    const folderPath = 'Images/';
+    const totalImages = 10; 
+    let currentIndex = 0;
+
+    function loadCarousel() {
+      for (let i = 1; i <= totalImages; i++) {
+        const img = document.createElement('img');
+        const imgNum = String(i).padStart(3, '0');
+        img.src = `${folderPath}PF2-${imgNum}.webp`;
+        slideContainer.appendChild(img);
+      }
+    }
+
+    function moveSlide(direction) {
+      const slides = document.querySelectorAll('.carousel-slide img');
+      if(slides.length === 0) return;
+      currentIndex = (currentIndex + direction + slides.length) % slides.length;
+      slideContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    loadCarousel();
+    setInterval(() => moveSlide(1), 5000); 
+  </script>
+</body>
+</html>

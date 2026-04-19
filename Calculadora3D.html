@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="1caf3909-123e-4e98-b2f5-b97f18ce963b"
+        data-blockingmode="auto" type="text/javascript"></script>
+    <meta charset="UTF-8">
+    <title>Precio Impresión 3D Online | EST Ingenieros</title>
+    <meta name="description"
+        content="Calcula el precio de tu impresión 3D al instante. Sube tu archivo STL, elige material y obtén un presupuesto de ingeniería profesional.">
+    <script type="text/plain" data-cookieconsent="statistics" async
+        src="https://www.googletagmanager.com/gtag/js?id=G-TBZK1N6QGS"></script>
+    <script type="text/plain" data-cookieconsent="statistics">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-TBZK1N6QGS');
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/exporters/STLExporter.js"></script>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Oswald:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+
+    <style>
+        /* Ajuste de estructura para Header fijo */
+        body,
+        html {
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Contenedor que separa el Header de la herramienta */
+        .tool-wrapper {
+            display: flex;
+            flex: 1;
+            /* Ocupa todo el alto restante */
+            overflow: hidden;
+            background: #fff;
+            position: relative;
+        }
+
+        /* SIDEBAR */
+        #sidebar {
+            width: 380px;
+            height: 100%;
+            padding: 25px;
+            background: #fdfdfd;
+            border-right: 1px solid var(--line);
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        .options-scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin: 15px 0 10px 0;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 5px;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid var(--line);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+
+        .grid-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+            gap: 8px;
+        }
+
+        .opt-btn input {
+            display: none;
+        }
+
+        .opt-btn label {
+            display: block;
+            background: white;
+            border: 1px solid var(--line);
+            padding: 10px 4px;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .opt-btn input:checked+label {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .upload-btn {
+            display: block;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-family: 'Oswald';
+        }
+
+        /* PRECIO */
+        .price-container {
+            border-top: 2px solid var(--line);
+            padding-top: 15px;
+        }
+
+        .total-price {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3rem;
+            color: var(--primary);
+            text-align: center;
+            font-weight: 700;
+            line-height: 1;
+            margin: 5px 0;
+        }
+
+        .iva-tag {
+            font-size: 0.7rem;
+            color: #999;
+            text-align: center;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #viewer {
+            flex: 1;
+            height: 100%;
+            position: relative;
+            background: #f4f4f4;
+        }
+
+        .btn-action {
+            background: var(--fg);
+            color: white;
+            border: none;
+            padding: 16px;
+            width: 100%;
+            border-radius: 4px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .btn-action:hover {
+            background: var(--primary);
+        }
+
+        .btn-action:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 450px;
+            font-family: 'Montserrat';
+        }
+
+        /* DRAWER DE MATERIALES */
+        .material-selector-card {
+            background: #f0f8ff;
+            border: 1px solid #bde0fe;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .mat-sel-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-top: 8px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mat-sel-btn:hover {
+            background: #004494;
+        }
+
+        .drawer-panel {
+            position: absolute;
+            top: 0;
+            left: 380px;
+            /* Al lado del sidebar */
+            width: 320px;
+            height: 100%;
+            background: #ffffff;
+            border-left: 1px solid #eee;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            transform: translateX(-100%);
+            /* Oculto detrás del sidebar */
+            z-index: -1;
+            padding: 20px;
+            overflow-y: auto;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .drawer-panel.active {
+            transform: translateX(0);
+            z-index: 20;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .mat-category {
+            margin-bottom: 20px;
+        }
+
+        .mat-category h4 {
+            font-family: 'Oswald';
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin: 0 0 5px 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 3px;
+        }
+
+        .mat-category p {
+            font-size: 0.7rem;
+            color: var(--muted);
+            margin: 0 0 10px 0;
+            line-height: 1.3;
+        }
+
+        .mat-item {
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .mat-item:hover {
+            border-color: var(--primary);
+            background: #f9fbff;
+        }
+
+        .mat-item.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .mat-item.active strong {
+            color: white;
+        }
+
+        .mat-item.active span {
+            color: #eee;
+        }
+
+        .mat-item strong {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--fg);
+            margin-bottom: 2px;
+        }
+
+        .mat-item span {
+            font-size: 0.7rem;
+            color: #666;
+            display: block;
+            line-height: 1.2;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div data-include="header.html"></div>
+
+    <main class="tool-wrapper">
+        <div id="sidebar">
+            <h1
+                style="font-family: 'Oswald'; font-size: 1.1rem; margin: 0 0 15px 0; text-transform: uppercase; color: var(--fg);">
+                Presupuesto Impresión 3D</h1>
+
+            <label class="upload-btn">
+                <i class="fa fa-file-export"></i> Subir Archivo STL
+                <input type="file" id="fileInput" accept=".stl, .step, .stp" style="display:none">
+            </label>
+            <div id="file-name"
+                style="font-size: 0.65rem; color: var(--muted); text-align: center; margin-bottom: 10px; font-weight: 600;">
+                Esperando archivo...</div>
+            <div style="text-align: center; margin-bottom: 10px;">
+                <a href="contacto.html?asunto=Presupuesto-Impresion-3D"
+                    style="font-size: 0.70rem; color: var(--primary); font-family: 'Montserrat'; font-weight: 600; text-decoration: underline; cursor: pointer;">
+                    ¿Tienes otro formato? Contacta con nosotros
+                </a>
+            </div>
+
+            <div class="options-scroll">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h3>1. Material</h3>
+                    <div style="font-size:0.7rem; color:var(--primary); cursor:pointer;"
+                        onclick="toggleMaterialDrawer()">
+                        <i class="fa fa-exchange-alt"></i> CAMBIAR
+                    </div>
+                </div>
+
+                <div class="material-selector-card">
+                    <strong id="selected-mat-name"
+                        style="color:var(--primary); font-family:'Oswald'; font-size:1rem;">PLA</strong>
+                    <p id="selected-mat-desc" style="font-size:0.75rem; color:#555; margin:5px 0 0 0; line-height:1.3;">
+                        El estándar de oro. Ideal para prototipos visuales y figuras.
+                    </p>
+                    <button class="mat-sel-btn" onclick="toggleMaterialDrawer()">
+                        Ver todos los materiales <i class="fa fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- DRAWER LATERAL -->
+                <div id="materialDrawer" class="drawer-panel">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                        <span style="font-family:'Oswald'; font-size:1.1rem; color:var(--primary);">MATERIALES</span>
+                        <button onclick="toggleMaterialDrawer()"
+                            style="background:none; border:none; color:var(--muted); cursor:pointer;"><i
+                                class="fa fa-times"></i></button>
+                    </div>
+
+                    <!-- 1. Comunes -->
+                    <div class="mat-category">
+                        <h4>1. USO COMÚN</h4>
+
+                        <div class="mat-item" onclick="selectMaterial('PLA')">
+                            <strong>PLA</strong>
+                            <span>Estándar de oro. Prototipos y figuras.</span>
+                        </div>
+                        <div class="mat-item" onclick="selectMaterial('PETG')">
+                            <strong>PETG</strong>
+                            <span>Más resistente y duradero.</span>
+                        </div>
+                        <div class="mat-item" onclick="selectMaterial('TPU')">
+                            <strong>TPU (Flexible)</strong>
+                            <span>Goma flexible. Fundas y sellos.</span>
+                        </div>
+                    </div>
+
+                    <!-- 2. Técnicos -->
+                    <div class="mat-category">
+                        <h4>2. TÉCNICOS</h4>
+
+                        <div class="mat-item" onclick="selectMaterial('ABS')">
+                            <strong>ABS</strong>
+                            <span>Resistente y post-procesable.</span>
+                        </div>
+                        <div class="mat-item" onclick="selectMaterial('ASA')">
+                            <strong>ASA</strong>
+                            <span>Resistente UV. Ideal exteriores.</span>
+                        </div>
+                        <div class="mat-item" onclick="selectMaterial('PC')">
+                            <strong>Policarbonato (PC)</strong>
+                            <span>Extremadamente resistente impactos/calor.</span>
+                        </div>
+                    </div>
+
+                    <!-- 3. Ingeniería -->
+                    <div class="mat-category">
+                        <h4>3. INGENIERÍA Y FIBRA</h4>
+
+                        <div class="mat-item" onclick="selectMaterial('PA')">
+                            <strong>Nylon (PA)</strong>
+                            <span>Fuerte y resistente al desgaste.</span>
+                        </div>
+                        <div class="mat-item" onclick="selectMaterial('CF')">
+                            <strong>PET-CF / PA-CF</strong>
+                            <span>Alta rigidez. Fibra de Carbono.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>2. Calidad</h3>
+                <div class="card">
+                    <label>Resolución de Capa</label>
+                    <div class="grid-options">
+                        <div class="opt-btn"><input type="radio" id="h15" name="layer" value="0.15"
+                                onchange="runSlicer()"><label for="h15">Alta</label></div>
+                        <div class="opt-btn"><input type="radio" id="h20" name="layer" value="0.20" checked
+                                onchange="runSlicer()"><label for="h20">Media</label></div>
+                        <div class="opt-btn"><input type="radio" id="h30" name="layer" value="0.30"
+                                onchange="runSlicer()"><label for="h30">Baja</label></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="price-container">
+                <div
+                    style="display:flex; justify-content: space-between; font-size: 0.75rem; color: #666; margin-bottom: 5px;">
+                    <span>Envío Nacional:</span>
+                    <span>5.50 € Aprox</span>
+                </div>
+                <div class="total-price" id="res-price">0.00 €</div>
+                <span class="iva-tag">* IVA e impresión incluidos</span>
+                <button class="btn-action" id="orderBtn" onclick="openModal()" disabled>Solicitar Revisión</button>
+            </div>
+        </div>
+
+        <div id="viewer"></div>
+    </main>
+
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <h2 style="font-family:'Oswald'; color:var(--primary); margin-top:0;">REVISIÓN DE VIABILIDAD</h2>
+            <p style="font-size:0.8rem; margin-bottom:15px; line-height: 1.4;">Un ingeniero revisará tu diseño. Te
+                enviaremos un email para confirmar la fabricación y gestionar el pago (Bizum/Transferencia).</p>
+            <div id="summary"
+                style="background:#f8f9fa; padding:12px; border-radius:4px; font-size:0.8rem; margin-bottom:15px; border-left:4px solid var(--primary);">
+            </div>
+
+            <form id="fs-form">
+                <input type="hidden" name="Archivo" id="in-file">
+                <input type="hidden" name="Material" id="in-mat">
+                <input type="hidden" name="Precio" id="in-price">
+                <input type="text" name="Nombre" placeholder="Tu Nombre" required
+                    style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; font-family: 'Montserrat';">
+                <input type="email" name="Email" placeholder="Tu Email" required
+                    style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; font-family: 'Montserrat';">
+                <button type="submit" class="btn-action">Enviar Solicitud</button>
+            </form>
+            <button onclick="closeModal()"
+                style="background:none; border:none; color:red; cursor:pointer; width:100%; margin-top:10px; font-family: 'Montserrat'; font-size: 0.7rem;">Cancelar
+                y volver</button>
+        </div>
+    </div>
+
+    <script>
+        let scene, camera, renderer, controls, currentMesh, currentFileName = "";
+        let isStepFile = false;
+        let originalFile = null;
+        const ENVIO = 5.50;
+
+        // NEW MATERIAL DB
+        const MATERIALS_DB = {
+            'PLA': {
+                name: 'PLA',
+                desc: 'El estándar de oro. Ideal para prototipos visuales y figuras.',
+                dens: 1.24, price: 0.03, col: 0x1b6e3a, quoteOnly: false
+            },
+            'PETG': {
+                name: 'PETG',
+                desc: 'Más resistente que el PLA y con cierta flexibilidad. Muy duradero.',
+                dens: 1.27, price: 0.025, col: 0x0055aa, quoteOnly: false
+            },
+            'TPU': {
+                name: 'TPU',
+                desc: 'Filamento flexible (goma). Perfecto para fundas o sellos.',
+                dens: 1.21, price: 0, col: 0xff4500, quoteOnly: true
+            },
+
+            'ABS': {
+                name: 'ABS',
+                desc: 'Plástico resistente y post-procesable con acetona.',
+                dens: 1.04, price: 0.035, col: 0x444444, quoteOnly: false
+            },
+            'ASA': {
+                name: 'ASA',
+                desc: 'Similar al ABS pero resistente a los rayos UV (ideal para exteriores).',
+                dens: 1.07, price: 0, col: 0xdddddd, quoteOnly: true
+            },
+            'PC': {
+                name: 'PC (Policarbonato)',
+                desc: 'Extremadamente resistente a impactos y altas temperaturas.',
+                dens: 1.20, price: 0, col: 0xffffff, transparency: true, quoteOnly: true
+            },
+
+            'PA': {
+                name: 'PA (Nylon)',
+                desc: 'Muy resistente al desgaste y mecánicamente fuerte.',
+                dens: 1.14, price: 0, col: 0xccccaa, quoteOnly: true
+            },
+            'CF': {
+                name: 'PET-CF / PA-CF',
+                desc: 'Filamentos reforzados con Fibra de Carbono. Rigidez increíble.',
+                dens: 1.30, price: 0, col: 0x111111, quoteOnly: true
+            }
+        };
+
+        let selectedMaterialKey = 'PLA';
+
+        // CARGA DE COMPONENTES (Header)
+        document.addEventListener('DOMContentLoaded', async () => {
+            const includes = document.querySelectorAll('[data-include]');
+            for (const el of includes) {
+                try {
+                    const res = await fetch(el.getAttribute('data-include'));
+                    if (res.ok) el.outerHTML = await res.text();
+                } catch (e) { }
+            }
+            initThree();
+            updateMaterialUI();
+        });
+
+        function initThree() {
+            const container = document.getElementById('viewer');
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xf1f1f1);
+            camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 5000);
+            camera.position.set(200, 200, 200);
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.appendChild(renderer.domElement);
+            scene.add(new THREE.GridHelper(250, 20, 0xcccccc, 0xdddddd));
+            scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+            const light = new THREE.DirectionalLight(0xffffff, 0.5);
+            light.position.set(1, 1, 1);
+            scene.add(light);
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            document.getElementById('fileInput').addEventListener('change', handleFile);
+            window.addEventListener('resize', () => {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+            animate();
+        }
+
+        function handleFile(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            originalFile = file; // Save for upload
+            currentFileName = file.name;
+            document.getElementById('file-name').innerText = file.name;
+            document.getElementById('orderBtn').disabled = false;
+
+            const ext = file.name.split('.').pop().toLowerCase();
+            isStepFile = (ext === 'step' || ext === 'stp');
+
+            if (isStepFile) {
+                if (currentMesh) {
+                    scene.remove(currentMesh);
+                    currentMesh = null;
+                }
+                alert("Archivo STEP detectado. No disponible previsualización 3D. Se calculará como 'Solicitud de Cotización'.");
+                runSlicer();
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                const geom = new THREE.STLLoader().parse(ev.target.result);
+                if (currentMesh) scene.remove(currentMesh);
+                geom.center(); geom.computeBoundingBox();
+
+                const matData = MATERIALS_DB[selectedMaterialKey];
+                const meshMat = new THREE.MeshStandardMaterial({
+                    color: matData.col,
+                    roughness: 0.5,
+                    transparent: !!matData.transparency,
+                    opacity: matData.transparency ? 0.6 : 1.0
+                });
+
+                currentMesh = new THREE.Mesh(geom, meshMat);
+                const size = new THREE.Vector3(); geom.boundingBox.getSize(size);
+                currentMesh.position.y = size.y / 2;
+                scene.add(currentMesh);
+                runSlicer();
+                const max = Math.max(size.x, size.y, size.z);
+                camera.position.set(max * 1.5, max * 1.5, max * 1.5);
+                controls.target.set(0, size.y / 2, 0); controls.update();
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        // --- SISTEMA DE DRAWER ---
+        function toggleMaterialDrawer() {
+            const d = document.getElementById('materialDrawer');
+            d.classList.toggle('active');
+        }
+
+        function selectMaterial(key) {
+            selectedMaterialKey = key;
+            updateMaterialUI();
+            toggleMaterialDrawer();
+
+            if (currentMesh) {
+                const matData = MATERIALS_DB[key];
+                currentMesh.material.color.setHex(matData.col);
+                currentMesh.material.transparent = !!matData.transparency;
+                currentMesh.material.opacity = matData.transparency ? 0.6 : 1.0;
+                currentMesh.material.needsUpdate = true;
+                runSlicer();
+            } else if (isStepFile) {
+                runSlicer();
+            }
+        }
+
+        function updateMaterialUI() {
+            const mat = MATERIALS_DB[selectedMaterialKey];
+            document.getElementById('selected-mat-name').innerText = mat.name;
+            document.getElementById('selected-mat-desc').innerText = mat.desc;
+
+            document.querySelectorAll('.mat-item').forEach(el => el.classList.remove('active'));
+            const activeItem = document.querySelector(`.mat-item[onclick="selectMaterial('${selectedMaterialKey}')"]`);
+            if (activeItem) activeItem.classList.add('active');
+        }
+
+        function runSlicer() {
+            const priceLabel = document.getElementById('res-price');
+            const shippingRow = document.querySelector('.price-container > div:first-child');
+            const ivaTag = document.querySelector('.iva-tag');
+
+            // Check STEP or Quote Only
+            const mat = MATERIALS_DB[selectedMaterialKey];
+
+            if (isStepFile || mat.quoteOnly) {
+                priceLabel.innerText = "Solicitar Cotización";
+                priceLabel.style.fontSize = "1.8rem";
+                if (shippingRow) shippingRow.style.display = 'none';
+                if (ivaTag) ivaTag.style.display = 'none';
+                return;
+            }
+
+            if (!currentMesh) return;
+
+            const h = document.querySelector('input[name="layer"]:checked').value;
+            const vol = getVol(currentMesh.geometry) / 1000;
+            const peso = (vol * 0.40) * mat.dens;
+            let mult = (h == "0.15") ? 0.6 : (h == "0.30" ? 1.6 : 1.0);
+            const horas = (vol * 1000 / (12 * mult)) / 3600 * 4.5;
+
+            const total = (3.50 + (peso * mat.price) + (horas * 1.50) + ENVIO) * 1.21;
+            priceLabel.innerText = total.toFixed(2) + " €";
+            priceLabel.style.fontSize = "3rem";
+            if (shippingRow) shippingRow.style.display = 'flex';
+            if (ivaTag) ivaTag.style.display = 'block';
+        }
+
+        function getVol(g) {
+            const p = g.attributes.position; let s = 0;
+            for (let i = 0; i < p.count; i += 3) {
+                const v1 = new THREE.Vector3().fromBufferAttribute(p, i);
+                const v2 = new THREE.Vector3().fromBufferAttribute(p, i + 1);
+                const v3 = new THREE.Vector3().fromBufferAttribute(p, i + 2);
+                s += v1.dot(v2.cross(v3)) / 6.0;
+            }
+            return Math.abs(s);
+        }
+
+        function openModal() {
+            const pText = document.getElementById('res-price').innerText;
+            const mat = MATERIALS_DB[selectedMaterialKey];
+
+            document.getElementById('summary').innerHTML = `<strong>Pieza:</strong> ${currentFileName}<br><strong>Material:</strong> ${mat.name}<br><strong>Presupuesto:</strong> ${pText}`;
+            document.getElementById('in-file').value = currentFileName;
+            document.getElementById('in-mat').value = mat.name;
+            document.getElementById('in-price').value = pText;
+            document.getElementById('orderModal').style.display = 'flex';
+        }
+        function closeModal() { document.getElementById('orderModal').style.display = 'none'; }
+        function animate() { requestAnimationFrame(animate); renderer.render(scene, camera); }
+
+        // URL DEL SCRIPT DE GOOGLE (Obtenida siguiendo el archivo INSTRUCCIONES.md)
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2taDsvAYg06Ms6YzZS4wEp7BAVC9cFSZFYu4bPFKODQ2g9yFTpI1Q6gzihM03fzsC/exec";
+
+        document.getElementById("fs-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+            btn.disabled = true; btn.innerText = "Procesando...";
+
+            if (GOOGLE_SCRIPT_URL.includes("PEGAR_AQUI")) {
+                alert("ERROR DE CONFIGURACIÓN:\nFalta configurar la URL de Google Apps Script en el código.\nConsulta el archivo INSTRUCCIONES_GOOGLE_SCRIPT.md");
+                btn.disabled = false; btn.innerText = originalText;
+                return;
+            }
+
+            // Preparar datos
+            const formData = new FormData(e.target);
+            const payload = {
+                nombre: formData.get("Nombre"),
+                email: formData.get("Email"),
+                material: formData.get("Material"),
+                precio: formData.get("Precio"),
+                fileName: "",
+                mimeType: "",
+                fileData: ""
+            };
+
+            // Función para leer archivo a Base64
+            const readFileBase64 = (file) => {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        // El resultado viene como "data:application/pdf;base64,....."
+                        // Queremos solo la parte base64
+                        const content = reader.result.split(',')[1];
+                        resolve(content);
+                    };
+                    reader.onerror = error => reject(error);
+                    reader.readAsDataURL(file);
+                });
+            };
+
+            try {
+                if (originalFile) {
+                    btn.innerText = "Subiendo archivo...";
+                    payload.fileName = originalFile.name;
+                    payload.mimeType = originalFile.type;
+                    payload.fileData = await readFileBase64(originalFile);
+                }
+
+                btn.innerText = "Enviando...";
+
+                // Enviar a Google Apps Script
+                // Usamos text/plain para evitar problemas de CORS preflight estrictos de Google
+                const res = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload),
+                    headers: { "Content-Type": "text/plain;charset=utf-8" }
+                });
+
+                const data = await res.json();
+
+                if (data.result === "success") {
+                    alert("¡Pedido enviado correctamente! Hemos recibido tu archivo.");
+                    closeModal();
+
+                    // Descarga de seguridad STL (solo visualizable) si procede
+                    if (currentMesh && !isStepFile) {
+                        // Opcional
+                    }
+                } else {
+                    throw new Error(data.error || "Error desconocido del servidor");
+                }
+
+            } catch (err) {
+                console.error(err);
+                alert("Hubo un error al enviar el pedido: " + err.message);
+            } finally {
+                btn.disabled = false; btn.innerText = originalText;
+            }
+        });
+    </script>
+
+</body>
+
+</html>

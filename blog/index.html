@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="1caf3909-123e-4e98-b2f5-b97f18ce963b"
+    data-blockingmode="auto" type="text/javascript"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Blog de Ingeniería Industrial y Diseño CAD | EST Ingenieros</title>
+  <meta name="description"
+    content="📐 Guías técnicas de ingeniería: tablas de roscas, tolerancias ISO, diseño CAD y casos de éxito en fabricación aditiva. Recursos gratuitos para ingenieros y makers." />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://estingenieros.com/blog.html" />
+
+  <meta property="og:title" content="Blog Técnico de Ingeniería y Diseño 3D | EST Ingenieros">
+  <meta property="og:description"
+    content="Guías, tablas técnicas y artículos sobre innovación en el sector industrial.">
+  <meta property="og:image" content="https://estingenieros.com/assets/images/blog-roscas.webp">
+
+  <script type="text/plain" data-cookieconsent="statistics" async
+    src="https://www.googletagmanager.com/gtag/js?id=G-TBZK1N6QGS"></script>
+  <script type="text/plain" data-cookieconsent="statistics">
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-TBZK1N6QGS');
+  </script>
+
+  <link rel="icon" type="image/png" href="assets/images/favicon.webp">
+  <meta name="theme-color" content="#1b6e3a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="preconnect" href="https://consent.cookiebot.com">
+
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Oswald:wght@400;500;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Oswald:wght@400;500;700&display=swap"
+      rel="stylesheet">
+  </noscript>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/global.css">
+
+  <style>
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
+      margin-bottom: 80px;
+    }
+
+    /* En pantallas grandes, forzar estructura 2-3-3... */
+    @media (min-width: 1024px) {
+      .blog-grid {
+        grid-template-columns: repeat(6, 1fr); /* Grid base de 6 columnas para dividir en 2 y 3 */
+      }
+
+      /* Los dos primeros ocupan 3 columnas cada uno (total 6 -> media fila cada uno) */
+      .blog-card:nth-child(1),
+      .blog-card:nth-child(2) {
+        grid-column: span 3;
+      }
+
+      /* El resto ocupan 2 columnas cada uno (total 6 -> un tercio de fila cada uno) */
+      .blog-card:nth-child(n+3) {
+        grid-column: span 2;
+      }
+
+      .blog-card:nth-child(1) .card-title,
+      .blog-card:nth-child(2) .card-title {
+        font-size: 1.8rem;
+      }
+    }
+
+    .card-excerpt {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-meta {
+      margin-top: auto;
+      padding-top: 15px;
+      border-top: 1px solid #f0f0f0;
+      font-size: 12px;
+      color: #999;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+
+    .cat-btn {
+      padding: 8px 24px;
+      border-radius: 50px;
+      border: 1px solid var(--line);
+      font-size: 13px;
+      font-weight: 600;
+      background: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+      font-family: 'Montserrat';
+    }
+
+    .cat-btn.active {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(27, 110, 58, 0.05);
+    }
+
+    .newsletter {
+      background: #111;
+      padding: 60px 20px;
+      text-align: center;
+      color: #fff;
+      border-radius: 12px;
+      margin-bottom: 60px;
+    }
+
+    .news-form {
+      display: flex;
+      gap: 10px;
+      max-width: 500px;
+      margin: 20px auto 0;
+    }
+
+    .news-input {
+      flex: 1;
+      padding: 12px 20px;
+      border-radius: 50px;
+      border: none;
+    }
+
+    .news-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div data-include="header.html"></div>
+
+  <main class="wrap">
+
+    <header class="page-header" style="text-align: center; padding: 60px 0;">
+      <h1 class="h1">Recursos y Blog Técnico</h1>
+      <p class="lead">Artículos de ingeniería, guías de <strong>diseño industrial</strong> y normativa técnica para
+        profesionales.</p>
+    </header>
+
+
+
+    <section class="blog-grid">
+
+      <!-- MÁS RECIENTE 1: RECAMBIOS -->
+      <article class="card-item blog-card" data-category="mantenimiento">
+        <a href="cost-recanvis-2d.html">
+          <img src="assets/images/blog-recanvis-2d-1.png"
+            alt="Archivos y planos 2D antiguos para el mantenimiento y digitalización"
+            style="width:100%; border-radius:4px; margin-bottom:15px; height:250px; object-fit:cover;">
+        </a>
+        <div class="card-body">
+          <span class="card-tag">Mantenimiento</span>
+          <h3 class="card-title"><a href="cost-recanvis-2d.html">¿Cuánto Cuesta Esperar un Plano 2D? El coste real del downtime</a></h3>
+          <p class="card-excerpt">La ingeniería inversa y los catálogos 3D evitan paradas de planta innecesarias por falta de documentación técnica original.</p>
+          <div class="card-meta">
+            <span><i class="far fa-clock"></i> 5 min</span>
+            <span>25 May, 2026</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- MÁS RECIENTE 2: ASISTENTE TALADRO -->
+      <article class="card-item blog-card" data-category="ingenieria">
+        <a href="asistente-taladro.html">
+          <img src="assets/images/hole_wizard_hero.png"
+            alt="Representación 3D de un mecanizado mediante el Asistente para Taladro (Hole Wizard)"
+            style="width:100%; border-radius:4px; margin-bottom:15px; height:250px; object-fit:cover;">
+        </a>
+        <div class="card-body">
+          <span class="card-tag">Ingeniería</span>
+          <h3 class="card-title"><a href="asistente-taladro.html">El Asistente para Taladro: Ingeniería para la Fabricación real</a></h3>
+          <p class="card-excerpt">Guía avanzada sobre Hole Wizard para asegurar una transición perfecta entre el diseño CAD y el taller de mecanizado.</p>
+          <div class="card-meta">
+            <span><i class="far fa-clock"></i> 6 min</span>
+            <span>03 Abr, 2026</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card-item blog-card" data-category="ingenieria">
+        <a href="tolerancias.html">
+          <img src="assets/images/ajuste-rodamiento.png"
+            alt="Plano técnico estilo blueprint de ajuste eje-rodamiento con tolerancias ISO"
+            style="width:100%; border-radius:4px; margin-bottom:15px; height:200px; object-fit:cover;">
+        </a>
+        <div class="card-body">
+          <span class="card-tag">Ingeniería</span>
+          <h3 class="card-title"><a href="tolerancias.html">Ajustes y Tolerancias ISO: Guía práctica</a></h3>
+          <p class="card-excerpt">Aprende a elegir el ajuste correcto (H7/g6, Interferencia...) y optimiza costes de fabricación con nuestra guía rápida.</p>
+          <div class="card-meta">
+            <span><i class="far fa-clock"></i> 5 min</span>
+            <span>25 Ene, 2026</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card-item blog-card" data-category="taller">
+        <a href="roscas.html">
+          <img src="assets/images/blog-roscas.webp"
+            alt="Tabla de diámetros de brocas para roscas métricas y gas - Guía técnica de taller"
+            style="width:100%; border-radius:4px; margin-bottom:15px; height:200px; object-fit:cover;">
+        </a>
+        <div class="card-body">
+          <span class="card-tag">Taller</span>
+          <h3 class="card-title"><a href="roscas.html">Tabla de Roscas: Qué broca usar para cada macho</a></h3>
+          <p class="card-excerpt">Optimiza tu proceso de mecanizado con nuestra guía rápida de diámetros de taladro para roscas Métricas e ISO (BSP/Gas).</p>
+          <div class="card-meta">
+            <span><i class="far fa-clock"></i> 2 min</span>
+            <span>22 Ene, 2026</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card-item blog-card" data-category="taller">
+        <a href="din912.html">
+          <img src="assets/images/din912.webp" alt="Dimensiones tornillería Allen DIN 912 para diseño CAD"
+            style="width:100%; border-radius:4px; margin-bottom:15px; height:200px; object-fit:cover;">
+        </a>
+        <div class="card-body">
+          <span class="card-tag">Taller</span>
+          <h3 class="card-title"><a href="din912.html">Dimensiones DIN 912: Tabla técnica para alojamientos</a>
+          </h3>
+          <p class="card-excerpt">Estandariza tus diseños CAD con las tolerancias y dimensiones correctas para tornillería de cabeza cilíndrica (Allen).</p>
+          <div class="card-meta">
+            <span><i class="far fa-clock"></i> 3 min</span>
+            <span>08 Ene, 2026</span>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <section class="newsletter">
+      <h3>Newsletter de Ingeniería Industrial</h3>
+      <p>Suscríbete para recibir guías de diseño, tablas técnicas y novedades en fabricación aditiva directamente en tu
+        email.</p>
+      <form class="news-form" id="newsletter-form">
+        <input type="email" name="email" placeholder="Correo corporativo" class="news-input" required>
+        <button type="submit" class="news-btn">Suscribirme</button>
+      </form>
+    </section>
+
+  </main>
+
+  <div data-include="footer.html"></div>
+
+  <script src="assets/js/main.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Filtros
+      const filterBtns = document.querySelectorAll('.cat-btn');
+      const articles = document.querySelectorAll('.blog-card');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // ... (logica existente de filtros) ...
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const filterValue = btn.getAttribute('data-filter');
+          articles.forEach(article => {
+            const articleCat = article.getAttribute('data-category');
+            article.style.display = (filterValue === 'all' || filterValue === articleCat) ? 'flex' : 'none';
+          });
+        });
+      });
+
+      // Newsletter
+      const form = document.getElementById("newsletter-form");
+      const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2taDsvAYg06Ms6YzZS4wEp7BAVC9cFSZFYu4bPFKODQ2g9yFTpI1Q6gzihM03fzsC/exec";
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button');
+        const originalText = btn.innerText;
+        btn.disabled = true; btn.innerText = "Suscribiendo...";
+
+        const email = form.querySelector('input[name="email"]').value;
+
+        const payload = {
+          nombre: "Nuevo Suscriptor",
+          email: email,
+          material: "NEWSLETTER",
+          precio: "Alta en Blog",
+          fileData: ""
+        };
+
+        try {
+          const res = await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify(payload),
+            headers: { "Content-Type": "text/plain;charset=utf-8" }
+          });
+
+          const data = await res.json();
+
+          if (data.result === "success") {
+            alert("¡Gracias por suscribirte al blog!");
+            form.reset();
+          } else {
+            throw new Error(data.error);
+          }
+        } catch (err) {
+          console.error(err);
+          alert("Error al suscribirse. Inténtalo de nuevo.");
+        } finally {
+          btn.disabled = false; btn.innerText = originalText;
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

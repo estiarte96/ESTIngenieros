@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="1caf3909-123e-4e98-b2f5-b97f18ce963b"
+        data-blockingmode="auto" type="text/javascript"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <title>Ajustes y Tolerancias ISO: Guía práctica para diseño | EST Ingenieros</title>
+    <meta name="description"
+        content="Guía completa sobre Ajustes y Tolerancias ISO 286. Tablas de ajustes recomendados (H7/g6, etc) y consejos para reducir costes de mecanizado.">
+    <script type="text/plain" data-cookieconsent="statistics" async
+        src="https://www.googletagmanager.com/gtag/js?id=G-TBZK1N6QGS"></script>
+    <script type="text/plain" data-cookieconsent="statistics">
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-TBZK1N6QGS');
+    </script>
+
+    <link rel="icon" type="image/png" href="/assets/images/favicon.webp">
+    <meta name="theme-color" content="#1b6e3a">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Oswald:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+</head>
+
+<body>
+
+    <div data-include="../header.html"></div>
+
+    <article class="wrap">
+        <header class="article-header">
+            <span class="article-meta">Oficina Técnica • Diseño Mecánico</span>
+            <h1 class="article-title">Ajustes y Tolerancias ISO: Guía práctica para el diseño y fabricación</h1>
+            <div class="article-date">Publicado el 25 Ene, 2026 • 5 min de lectura</div>
+        </header>
+
+        <div class="article-hero">
+            <img src="../assets/images/ajuste-rodamiento.png"
+                alt="Plano técnico estilo blueprint de ajuste eje-rodamiento con tolerancias ISO"
+                style="width:100%; height:auto; display:block; border-radius:4px;">
+        </div>
+
+        <div class="content wrap-narrow">
+            <p>En el diseño CAD, las piezas siempre encajan perfectamente en el ensamblaje virtual. Sin embargo, en el
+                mundo real, la <strong>variabilidad de los procesos de fabricación</strong> hace imposible obtener una
+                medida exacta de forma repetitiva. Aquí es donde entran en juego los ajustes y tolerancias.</p>
+
+            <p>Entender cómo aplicar el sistema de tolerancias ISO 286 es la diferencia entre un prototipo que funciona
+                a la primera y un montón de chatarra costosa.</p>
+
+            <h2>¿Qué es un ajuste en ingeniería?</h2>
+            <p>El ajuste es la relación resultante, antes del montaje, entre las dimensiones de dos piezas (agujero y
+                eje) que van a ser acopladas. Dependiendo de las tolerancias elegidas, podemos obtener tres tipos de
+                resultados:</p>
+
+            <ul>
+                <li><strong>Ajuste con juego:</strong> El eje es siempre más pequeño que el agujero (permite
+                    movimiento).</li>
+                <li><strong>Ajuste de transición:</strong> Puede haber juego o interferencia según la fabricación real.
+                </li>
+                <li><strong>Ajuste con interferencia (apriete):</strong> El eje es más grande que el agujero (requiere
+                    prensa o diferencia térmica para el montaje).</li>
+            </ul>
+
+            <h2>Las letras y los números: ¿Qué significan?</h2>
+            <p>Cuando ves una cota como <strong>Ø20 H7</strong>, estás definiendo la precisión total del acoplamiento:
+            </p>
+
+            <ul>
+                <li><strong>La Letra (Posición):</strong> Indica la posición de la tolerancia respecto a la línea cero.
+                    Las <strong>mayúsculas</strong> son para agujeros (H, G, F...) y las <strong>minúsculas</strong>
+                    para ejes (h, g, f...).</li>
+                <li><strong>El Número (Calidad):</strong> Indica la amplitud de la tolerancia (grado de precisión IT).
+                    Cuanto menor es el número, más estrecha y costosa es la tolerancia. Un IT6 es mucho más preciso (y
+                    difícil de fabricar) que un IT11.</li>
+            </ul>
+
+            <h2>Tabla de Ajustes Recomendados (Uso común)</h2>
+            <p>Para simplificar el diseño, lo más habitual es utilizar el <strong>Sistema de Agujero Base (H)</strong>,
+                donde el agujero siempre tiene una tolerancia en positivo partiendo de cero.</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aplicación</th>
+                            <th>Ajuste (Agujero/Eje)</th>
+                            <th>Tipo de ajuste</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Piezas con gran libertad, giros rápidos</td>
+                            <td><strong>H11 / c11</strong></td>
+                            <td>Juego amplio</td>
+                        </tr>
+                        <tr>
+                            <td>Ejes de transmisión, poleas, giros medios</td>
+                            <td><strong>H7 / f7</strong></td>
+                            <td>Juego de deslizamiento</td>
+                        </tr>
+                        <tr>
+                            <td>Posicionamiento preciso, piezas fijas desmontables</td>
+                            <td><strong>H7 / h6</strong></td>
+                            <td>Juego mínimo / Deslizamiento</td>
+                        </tr>
+                        <tr>
+                            <td>Montaje con martillo de goma (fijo pero desmontable)</td>
+                            <td><strong>H7 / n6</strong></td>
+                            <td>Transición</td>
+                        </tr>
+                        <tr>
+                            <td>Montaje con prensa (unión permanente)</td>
+                            <td><strong>H7 / p6</strong></td>
+                            <td>Interferencia (Apriete)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>Consejos para optimizar costes de fabricación</h2>
+            <div class="feature-list">
+                <ul>
+                    <li><strong>No sobre-especifiques:</strong> No uses un grado de tolerancia IT6 si un IT9 es
+                        suficiente para la función de la pieza. La precisión extrema dispara el precio del mecanizado.
+                    </li>
+                    <li><strong>Usa el Sistema de Agujero Base:</strong> Es más barato comprar un escariador estándar
+                        (por ejemplo, para un agujero H7) que fabricar un eje especial para un agujero a medida.</li>
+                    <li><strong>Considera el acabado superficial:</strong> De nada sirve pedir una tolerancia de micras
+                        si el acabado superficial (rugosidad) es rugoso, ya que las crestas del material se desgastarán
+                        rápidamente y el ajuste se perderá.</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <h3>Conclusión</h3>
+                <p>Dominar las tablas de ajustes es fundamental para estandarizar la producción y asegurar que cualquier
+                    pieza fabricada en diferentes talleres encaje correctamente. En <strong>EST Ingenieros</strong>
+                    apostamos por la precisión desde la fase de diseño para evitar sorpresas en el taller.</p>
+            </div>
+
+            <div class="cta-box">
+                <h2>¿Necesitas ayuda con el diseño técnico?</h2>
+                <p>En EST Ingenieros combinamos el conocimiento técnico de taller con el diseño 3D avanzado para ofrecerte soluciones industriales listas para producción.</p>
+                <a href="contacto.html" class="btn-primary">Pedir Presupuesto</a>
+            </div>
+
+        </div>
+    </article>
+
+    <div data-include="../footer.html"></div>
+
+    <script src="../assets/js/main.js" defer></script>
+</body>
+
+</html>

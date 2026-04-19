@@ -1,0 +1,52 @@
+[
+   {
+  "id": "ManetaMercedes",
+  "title": "Maneta tirador asiento Mercedes ML W163",
+  "subtitle": "PLA negro · Repuesto delantero",
+  "category": "coches",
+  "materials": ["PLA"],
+  "price": 25,
+  "cover": "assets/products/ManetaMercedes/Images/1.webp",
+  "images": [
+    "/assets/products/ManetaMercedes/Images/1.webp",
+    "/assets/products/ManetaMercedes/Images/2.webp",
+    "/assets/products/ManetaMercedes/Images/3.webp",
+    "/assets/products/ManetaMercedes/Images/4.webp",
+    "/assets/products/ManetaMercedes/Images/5.webp"
+  ],
+  "url": "/assets/products/ManetaMercedes/ManetaMercedes.html"
+  },
+
+  {
+  "id": "PenjadorDucato",
+  "title": "Penjador/gancho Ducato · Jumper · Boxer",
+  "subtitle": "PLA — Negro o Azul",
+  "category": "coches",
+  "materials": ["PLA"],
+  "price": 19.90,                   
+  "cover": "assets/products/PenjadorDucato/Images/1.webp", 
+  "images": [
+    "assets/products/PenjadorDucato/Images/1.webp",
+    "assets/products/PenjadorDucato/Images/2.webp",
+    "assets/products/PenjadorDucato/Images/3.webp"
+  ],
+  "url": "assets/products/PenjadorDucato/PenjadorDucato.html"
+}, 
+
+{
+  "id": "EtiquetasCamper",
+  "title": "Etiquetas interruptores para camper",
+  "subtitle": "PLA — Negro y Blanco",
+  "category": "coches",
+  "materials": ["PLA"],
+  "price": 1.50,                        
+  "cover": "assets/products/EtiquetasCamper/Images/1.webp",
+  "images": [
+    "assets/products/EtiquetasCamper/Images/1.webp",
+    "assets/products/EtiquetasCamper/Images/2.webp",
+    "assets/products/EtiquetasCamper/Images/3.webp"
+  ],
+  "url": "assets/products/EtiquetasCamper/EtiquetasCamper.html"
+}
+
+]

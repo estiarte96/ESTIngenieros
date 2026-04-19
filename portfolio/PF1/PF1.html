@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+<head>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TBZK1N6QGS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TBZK1N6QGS');
+  </script>
+  <link rel="icon" type="image/png" href="../../assets/images/favicon.webp">
+  <meta name="theme-color" content="#1b6e3a">
+  <meta charset="utf-8" />
+  <title>Cortadora Semiautomática de Burletes – EST Ingenieros</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet" href="../../assets/css/global.css">
+
+  <style>
+    /* Estilos exclusivos del carrusel de este proyecto */
+    .carousel-container { position: relative; width: 100%; margin: 30px 0; overflow: hidden; border-radius: 8px; border: 1px solid #eee; background: #fff; aspect-ratio: 16/9; }
+    .carousel-slide { display: flex; transition: transform 0.5s ease-in-out; height: 100%; }
+    .carousel-slide img { width: 100%; height: 100%; object-fit: contain; flex-shrink: 0; }
+    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; padding: 15px 10px; cursor: pointer; z-index: 10; }
+    .carousel-btn.next { right: 0; }
+    .carousel-btn:hover { background: var(--primary); }
+  </style>
+</head>
+<body>
+
+  <div data-include="../../header.html"></div>
+
+  <main class="wrap">
+    <header class="project-header">
+      <div class="muted" style="font-size: 12px; margin-bottom: 10px; text-transform: uppercase;">
+        <a href="../index.html"">← Volver a Proyectos</a> / Industrial
+      </div>
+      <h1 class="h1">Cortadora de Burletes de Fieltro</h1>
+      <p class="lead">Automatización de corte para fabricante de filtros industriales.</p>
+    </header>
+
+    <div class="project-grid">
+      <section class="content">
+        <div class="card-item" style="padding: 0; overflow: hidden; margin-bottom: 30px;">
+          <img src="Images/PF1-001.webp" alt="Máquina cortadora" style="width: 100%; display: block;">
+        </div>
+
+        <h2 class="h2">El Reto: Precisión y Velocidad</h2>
+        <p>El cliente utilizaba un proceso manual obsoleto. La producción dependía de la destreza del operario, lo que generaba irregularidades en el corte y un alto índice de desperdicio de fieltro técnico.</p>
+        <div class="card-item" style="padding: 0; overflow: hidden; margin-bottom: 30px;">
+          <img src="Images/PF1-003.webp" alt="Detalle guías lineales" style="width: 100%; display: block;">
+        </div>
+        <h2 class="h2">La Solución: Híbrido Semiautomático</h2>
+        <p>Diseñamos una solución que combina la robustez mecánica con un control electrónico preciso:</p>
+        
+        
+
+        <ul class="feature-list">
+          <li><strong>Alimentación Automática:</strong> Sistema de arrastre motorizado con precisión de ±0.5mm.</li>
+          <li><strong>Cabezal de Corte:</strong> Cuchilla circular de acero rápido sobre guías lineales rectificadas.</li>
+          <li><strong>Seguridad:</strong> Integración de protecciones y paros de emergencia según normativa.</li>
+        </ul>
+
+        <div class="card-item" style="padding: 0; overflow: hidden; margin-bottom: 30px;">
+          <img src="Images/PF1-002.webp" alt="Detalle guías lineales" style="width: 100%; display: block;">
+        </div>
+
+        <h2 class="h2">Resultado: +300% Productividad</h2>
+        <p>Gracias a la automatización del ciclo de corte, se logró cuaduplicar la producción por hora, garantizando que cada burlete sea idéntico al anterior.</p>
+
+        <h2 class="h2">Galería Técnica</h2>
+        <div class="carousel-container">
+          <div class="carousel-slide" id="carouselSlide"></div>
+          <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+          <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+      </section>
+
+      <aside>
+        <div class="tech-sheet">
+          <div class="tech-item"><span class="tech-label">Material</span><div class="tech-value">Fieltro técnico / Tela</div></div>
+          <div class="tech-item"><span class="tech-label">Sistema</span><div class="tech-value">Cuchilla circular motorizada</div></div>
+          <div class="tech-item"><span class="tech-label">Productividad</span><div class="tech-value">8 piezas / minuto</div></div>
+          <div class="tech-item"><span class="tech-label">Año</span><div class="tech-value">2025</div></div>
+          
+          <div class="cta-box" style="background: var(--primary); color: white; border: none; padding: 25px; border-radius: 8px; text-align: center;">
+            <p style="margin-bottom: 15px; font-weight: 600;">¿Necesitas una máquina a medida?</p>
+            <a href="../../contacto.html""" class="btn-primary" style="background: white; color: black; width: 100%; text-align: center;">Solicitar Estudio</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div data-include="../../footer.html"></div>
+
+  <script src="../../assets/js/main.js" defer></script>
+  <script>
+    // Configuración específica del carrusel
+    const slideContainer = document.getElementById('carouselSlide');
+    const folderPath = 'Images/';
+    const totalImages = 12; 
+    let currentIndex = 0;
+
+    function loadCarousel() {
+      for (let i = 1; i <= totalImages; i++) {
+        const img = document.createElement('img');
+        const imgNum = String(i).padStart(3, '0');
+        img.src = `${folderPath}PF1-${imgNum}.webp`;
+        slideContainer.appendChild(img);
+      }
+    }
+
+    function moveSlide(direction) {
+      const slides = document.querySelectorAll('.carousel-slide img');
+      if(slides.length === 0) return;
+      currentIndex = (currentIndex + direction + slides.length) % slides.length;
+      slideContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    loadCarousel();
+    setInterval(() => moveSlide(1), 5000);
+  </script>
+</body>
+</html>
