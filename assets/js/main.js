@@ -27,22 +27,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // Función para marcar el link activo según la URL
 function markActiveLink() {
-    // Obtenemos el nombre del archivo actual sin extensión para comparar
-    let currentPath = window.location.pathname.split("/").pop() || "index.html";
-    currentPath = currentPath.replace('.html', '');
-    if (currentPath === '') currentPath = 'index'; // Para la raíz
+    let currentPath = window.location.pathname;
+    let cleanCurrent = currentPath.replace('/index.html', '/').replace('.html', '');
 
     document.querySelectorAll(".nav-link").forEach(link => {
-        const href = link.getAttribute("href");
+        let href = link.getAttribute("href");
         if (!href) return;
 
-        // Obtenemos el objetivo del link sin extensión
-        let linkPath = href.split("/").pop() || "index.html";
-        linkPath = linkPath.replace('.html', '');
-        if (linkPath === '') linkPath = 'index';
+        let cleanLink = href.replace('/index.html', '/').replace('.html', '');
 
-        if (linkPath === currentPath) {
-            link.classList.add("active");
+        if (cleanLink === '/') {
+            if (cleanCurrent === '/') {
+                link.classList.add("active");
+            }
+        } else {
+            if (cleanCurrent === cleanLink || cleanCurrent.startsWith(cleanLink)) {
+                link.classList.add("active");
+            }
         }
     });
 }

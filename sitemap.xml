@@ -38,13 +38,6 @@
     <priority>0.8</priority>
   </url>
 
-  <url>
-    <loc>https://estingenieros.com/estdesignLab.html</loc>
-    <lastmod>2026-02-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
   <!-- Portfolio y Casos de Estudio -->
   <url>
     <loc>https://estingenieros.com/portfolio/</loc>
