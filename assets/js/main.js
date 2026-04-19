@@ -2,7 +2,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 1. CARGA DINÁMICA DE COMPONENTES (Header/Footer)
     const includes = document.querySelectorAll('[data-include]');
     for (const el of includes) {
-        const file = el.getAttribute('data-include');
+        let file = el.getAttribute('data-include');
+        // Convertir rutas relativas en absolutas para evitar fallos en Vercel por trailing slashes
+        file = file.replace(/\.\.\//g, '');
+        if (!file.startsWith('/')) file = '/' + file;
+        
         try {
             const res = await fetch(file);
             if (res.ok) {
