@@ -1,35 +1,35 @@
 import re
 import os
 
-base_dir = "/Users/josepmiquel/Documents/JestDesign/portfolio/promo/"
+base_dir = "/Users/josepmiquel/Documents/GitHub/ESTIngenieros/portfolio/promo/"
 configs = {
     "PF1": {
-        "img": "../PF1/Images/PF1-001.webp",
+        "img": "PF1.png",
         "alt": "Máquina de Corte",
         "qr": "https://estingenieros.com/portfolio/PF1/PF1.html",
         "text": "Automatizar el corte de fieltro técnico con alimentación por arrastre motorizado y cuchilla circular de alta precisión."
     },
     "PF2": {
-        "img": "../PF2/Images/PF2-001.webp",
-        "alt": "Transportador Sincronizado",
+        "img": "PF2.png",
+        "alt": "Transportador Modular",
         "qr": "https://estingenieros.com/portfolio/PF2/PF2.html",
         "text": "Sincronizar el transporte con la línea principal mediante encoder y asegurar la adherencia de láminas con una turbina de vacío."
     },
     "PF3": {
-        "img": "../PF3/Images/PF3-001.webp",
-        "alt": "Expansor ICT49",
+        "img": "PF3.png",
+        "alt": "Expansor de Mangas",
         "qr": "https://estingenieros.com/portfolio/PF3/PF3.html",
         "text": "Expandir cuellos de filtros mediante un mecanismo mecánico neumático para una inserción instantánea y concéntrica."
     },
     "PF4": {
-        "img": "../PF4/Images/PF4-001.webp",
-        "alt": "Termosoldadora",
+        "img": "PF4.png",
+        "alt": "Máquina de Soldadura",
         "qr": "https://estingenieros.com/portfolio/PF4/PF4.html",
         "text": "Automatizar la soldadura de tejidos técnicos cilíndricos sincronizando temperatura y tracción con control HMI avanzado."
     },
     "PF5": {
-        "img": "../PF5/Images/PF5-001.webp",
-        "alt": "Cortadora de Cinta",
+        "img": "PF5.png",
+        "alt": "Cortadora Automática",
         "qr": "https://estingenieros.com/portfolio/PF5/PF5.html",
         "text": "Procesar rollos de cinta automatizando la tracción y el corte neumático para una repetibilidad milimétrica sin errores."
     }
@@ -55,7 +55,6 @@ for pf, data in configs.items():
                     <div class="qr-code">
                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={data['qr']}" alt="QR">
                     </div>
-                    <p style="font-size: 8pt; margin-top: 2mm; color: var(--muted); line-height: 1.2;">Escanear para datos online</p>
                 </div>
             </div>
         </div>'''
