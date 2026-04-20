@@ -1,11 +1,21 @@
 document.addEventListener("DOMContentLoaded", async () => {
     // 1. CARGA DINÁMICA DE COMPONENTES (Header/Footer)
+    const scriptTag = document.querySelector('script[src*="assets/js/main.js"]');
+    const siteRoot = scriptTag ? scriptTag.src.split('assets/js/main.js')[0] : '';
+
     const includes = document.querySelectorAll('[data-include]');
     for (const el of includes) {
         let file = el.getAttribute('data-include');
-        // Convertir rutas relativas en absolutas para evitar fallos en Vercel por trailing slashes
-        file = file.replace(/\.\.\//g, '');
-        if (!file.startsWith('/')) file = '/' + file;
+        
+        if (siteRoot) {
+            // Resolvemos basándonos en el root real del sitio para entorno local y Vercel
+            let cleanFile = file.replace(/\.\.\//g, '').replace(/^\//, '');
+            file = siteRoot + cleanFile;
+        } else {
+            // Fallback
+            file = file.replace(/\.\.\//g, '');
+            if (!file.startsWith('/')) file = '/' + file;
+        }
         
         try {
             const res = await fetch(file);
