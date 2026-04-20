@@ -1,14 +1,14 @@
 const products = [
     { name: 'Soporte Monitor', url: 'SoporteMonitor/SoporteMonitor.html', img: 'SoporteMonitor/Images/1.jpg', cat: 'altres' },
-    { name: 'Porta Lápices', url: 'PortaLapices/PortaLapices.html', img: 'PortaLapices/Images/21.png', cat: 'altres' },
+    { name: 'Porta Lápices', url: 'PortaLapices/PortaLapices.html', img: 'PortaLapices/Images/21.webp', cat: 'altres' },
     { name: 'Maneta Mercedes', url: 'ManetaMercedes/ManetaMercedes.html', img: 'ManetaMercedes/Images/1.webp', cat: 'coche' },
     { name: 'Gancho Ducato', url: 'PenjadorDucato/PenjadorDucato.html', img: 'PenjadorDucato/Images/1.webp', cat: 'coche' },
     { name: 'Etiquetas Camper', url: 'EtiquetasCamper/EtiquetasCamper.html', img: 'EtiquetasCamper/Images/1.webp', cat: 'altres' },
-    { name: 'Bike Wall Mount', url: 'BikeWallMount/BikeWallMount.html', img: 'BikeWallMount/Images/1.png', cat: 'bici' },
-    { name: 'Garmin Mount', url: 'GarminMount/GarminMount.html', img: 'GarminMount/Images/1.png', cat: 'bici' },
+    { name: 'Bike Wall Mount', url: 'BikeWallMount/BikeWallMount.html', img: 'BikeWallMount/Images/1.webp', cat: 'bici' },
+    { name: 'Garmin Mount', url: 'GarminMount/GarminMount.html', img: 'GarminMount/Images/1.webp', cat: 'bici' },
     { name: 'Suport Llinterna', url: 'Llinterna/Llinterna.html', img: 'Llinterna/Images/1.jpg', cat: 'bici' },
-    { name: 'Porta Bidó', url: 'PortaBido/PortaBido.html', img: 'PortaBido/Images/1.png', cat: 'bici' },
-    { name: 'Protector de Canvi', url: 'ProtectorCanvi/ProtectorCanvi.html', img: 'ProtectorCanvi/Images/1.png', cat: 'bici' }
+    { name: 'Porta Bidó', url: 'PortaBido/PortaBido.html', img: 'PortaBido/Images/1.webp', cat: 'bici' },
+    { name: 'Protector de Canvi', url: 'ProtectorCanvi/ProtectorCanvi.html', img: 'ProtectorCanvi/Images/1.webp', cat: 'bici' }
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
