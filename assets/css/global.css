@@ -1354,3 +1354,8 @@ tr:nth-child(even) {
     gap: 40px;
   }
 }
+
+/* Utilidad para galería */
+.hidden-gallery {
+  display: none !important;
+}

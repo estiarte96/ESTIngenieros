@@ -122,6 +122,9 @@
 
         <h2 class="h2">Galería de detalles</h2>
         <div class="gallery-grid" id="galleryGrid"></div>
+        <div id="galleryBtnContainer" style="text-align: center; margin-top: 30px; margin-bottom: 40px;">
+          <button id="loadMoreBtn" class="btn-secondary" style="cursor: pointer; padding: 12px 40px; font-weight: 600;">Ver más fotos</button>
+        </div>
 
 
         <h2 class="h2">Solicita tu proyecto</h2>
@@ -161,19 +164,39 @@
 
   <script src="../../assets/js/main.js" defer></script>
   <script>
-    const galleryContainer = document.getElementById('galleryGrid');
-    const images = ["PF7-001.webp", "PF7-002.webp", "PF7-003.webp", "PF7-004.webp", "PF7-005.webp", "PF7-006.webp", "PF7-007.webp", "PF7-008.webp"];
+    document.addEventListener('DOMContentLoaded', () => {
+      const galleryContainer = document.getElementById('galleryGrid');
+      const loadMoreBtn = document.getElementById('loadMoreBtn');
+      const images = ["PF7-001.webp", "PF7-002.webp", "PF7-003.webp", "PF7-004.webp", "PF7-005.webp", "PF7-006.webp", "PF7-007.webp", "PF7-008.webp"];
+      const initialLimit = 8;
 
-    if (galleryContainer && typeof openLightbox === 'function') {
+      if (galleryContainer) {
         images.forEach((src, index) => {
-            const img = document.createElement('img');
-            img.src = src;
-            img.className = 'gallery-item';
-            img.onclick = () => openLightbox(images, index);
-            img.onerror = function () { this.style.display = 'none'; };
-            galleryContainer.appendChild(img);
+          const img = document.createElement('img');
+          img.src = src;
+          img.className = 'gallery-item' + (index >= initialLimit ? ' hidden-gallery' : '');
+          img.onclick = () => {
+            if (typeof openLightbox === 'function') {
+              openLightbox(images, index);
+            }
+          };
+          img.onerror = function () { this.style.display = 'none'; };
+          galleryContainer.appendChild(img);
         });
-    }
+
+        if (images.length <= initialLimit && loadMoreBtn) {
+          loadMoreBtn.style.display = 'none';
+        }
+
+        if (loadMoreBtn) {
+          loadMoreBtn.onclick = () => {
+            const hiddenImages = galleryContainer.querySelectorAll('.hidden-gallery');
+            hiddenImages.forEach(img => img.classList.remove('hidden-gallery'));
+            loadMoreBtn.style.display = 'none';
+          };
+        }
+      }
+    });
   </script>
 </body>
 

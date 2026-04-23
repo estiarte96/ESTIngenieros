@@ -4,31 +4,31 @@ import os
 base_dir = "/Users/josepmiquel/Documents/GitHub/ESTIngenieros/portfolio/promo/"
 configs = {
     "PF1": {
-        "img": "PF1.png",
+        "img": "PF1.webp",
         "alt": "Máquina de Corte",
         "qr": "https://estingenieros.com/portfolio/PF1/PF1.html",
         "text": "Automatizar el corte de fieltro técnico con alimentación por arrastre motorizado y cuchilla circular de alta precisión."
     },
     "PF2": {
-        "img": "PF2.png",
+        "img": "PF2.webp",
         "alt": "Transportador Modular",
         "qr": "https://estingenieros.com/portfolio/PF2/PF2.html",
         "text": "Sincronizar el transporte con la línea principal mediante encoder y asegurar la adherencia de láminas con una turbina de vacío."
     },
     "PF3": {
-        "img": "PF3.png",
+        "img": "PF3.webp",
         "alt": "Expansor de Mangas",
         "qr": "https://estingenieros.com/portfolio/PF3/PF3.html",
         "text": "Expandir cuellos de filtros mediante un mecanismo mecánico neumático para una inserción instantánea y concéntrica."
     },
     "PF4": {
-        "img": "PF4.png",
+        "img": "PF4.webp",
         "alt": "Máquina de Soldadura",
         "qr": "https://estingenieros.com/portfolio/PF4/PF4.html",
         "text": "Automatizar la soldadura de tejidos técnicos cilíndricos sincronizando temperatura y tracción con control HMI avanzado."
     },
     "PF5": {
-        "img": "PF5.png",
+        "img": "PF5.webp",
         "alt": "Cortadora Automática",
         "qr": "https://estingenieros.com/portfolio/PF5/PF5.html",
         "text": "Procesar rollos de cinta automatizando la tracción y el corte neumático para una repetibilidad milimétrica sin errores."

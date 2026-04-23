@@ -70,6 +70,9 @@
 
         <h2 class="h2">Galería de Detalles</h2>
         <div class="gallery-grid" id="galleryGrid"></div>
+        <div id="galleryBtnContainer" style="text-align: center; margin-top: 30px; margin-bottom: 40px;">
+          <button id="loadMoreBtn" class="btn-secondary" style="cursor: pointer; padding: 12px 40px; font-weight: 600;">Ver más fotos</button>
+        </div>
         <h2 class="h2">Solicita tu proyecto</h2>
         <p>Si buscas una <strong>cortadora automática de cinta programable</strong> para <strong>automatizar el corte a medida con precisión industrial</strong>, en EST Ingenieros desarrollamos proyectos a medida para mejorar la eficiencia, la seguridad y la integración de tu proceso productivo.</p>
       </section>
@@ -94,19 +97,39 @@
 
   <script src="../../assets/js/main.js" defer></script>
   <script>
-    const galleryContainer = document.getElementById('galleryGrid');
-    const images = ["Images/PF5-001.webp", "Images/PF5-002.webp", "Images/PF5-003.webp", "Images/PF5-004.webp", "Images/PF5-005.webp", "Images/PF5-006.webp", "Images/PF5-007.webp", "Images/PF5-008.webp", "Images/PF5-009.webp", "Images/PF5-010.webp", "Images/PF5-011.webp", "Images/PF5-012.webp"];
+    document.addEventListener('DOMContentLoaded', () => {
+      const galleryContainer = document.getElementById('galleryGrid');
+      const loadMoreBtn = document.getElementById('loadMoreBtn');
+      const images = ["Images/PF5-001.webp", "Images/PF5-002.webp", "Images/PF5-003.webp", "Images/PF5-004.webp", "Images/PF5-005.webp", "Images/PF5-006.webp", "Images/PF5-007.webp", "Images/PF5-008.webp", "Images/PF5-009.webp", "Images/PF5-010.webp", "Images/PF5-011.webp", "Images/PF5-012.webp"];
+      const initialLimit = 8;
 
-    if (galleryContainer && typeof openLightbox === 'function') {
+      if (galleryContainer) {
         images.forEach((src, index) => {
-            const img = document.createElement('img');
-            img.src = src;
-            img.className = 'gallery-item';
-            img.onclick = () => openLightbox(images, index);
-            img.onerror = function () { this.style.display = 'none'; };
-            galleryContainer.appendChild(img);
+          const img = document.createElement('img');
+          img.src = src;
+          img.className = 'gallery-item' + (index >= initialLimit ? ' hidden-gallery' : '');
+          img.onclick = () => {
+            if (typeof openLightbox === 'function') {
+              openLightbox(images, index);
+            }
+          };
+          img.onerror = function () { this.style.display = 'none'; };
+          galleryContainer.appendChild(img);
         });
-    }
+
+        if (images.length <= initialLimit && loadMoreBtn) {
+          loadMoreBtn.style.display = 'none';
+        }
+
+        if (loadMoreBtn) {
+          loadMoreBtn.onclick = () => {
+            const hiddenImages = galleryContainer.querySelectorAll('.hidden-gallery');
+            hiddenImages.forEach(img => img.classList.remove('hidden-gallery'));
+            loadMoreBtn.style.display = 'none';
+          };
+        }
+      }
+    });
   </script>
 </body>
 </html>
