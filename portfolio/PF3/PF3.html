@@ -24,12 +24,6 @@
 
   <style>
     /* Estilos específicos para el carrusel de este proyecto */
-    .carousel-container { position: relative; width: 100%; margin: 30px 0; overflow: hidden; border-radius: 8px; border: 1px solid #eee; background: #fff; aspect-ratio: 16/9; }
-    .carousel-slide { display: flex; transition: transform 0.5s ease-in-out; height: 100%; }
-    .carousel-slide img { width: 100%; height: 100%; object-fit: contain; flex-shrink: 0; }
-    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; padding: 15px 10px; cursor: pointer; z-index: 10; }
-    .carousel-btn.next { right: 0; }
-    .carousel-btn:hover { background: var(--primary); }
   </style>
 </head>
 <body>
@@ -71,11 +65,7 @@
         <p>Al ser un sistema puramente mecánico-neumático, la  ofrece una vida útil extremadamente larga con un mantenimiento mínimo, asegurando un flujo de producción constante y sin errores de forma.</p>
 
         <h2 class="h2">Galería de Detalles</h2>
-        <div class="carousel-container">
-          <div class="carousel-slide" id="carouselSlide"></div>
-          <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
-          <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
-        </div>
+        <div class="gallery-grid" id="galleryGrid"></div>
         <h2 class="h2">Solicita tu proyecto</h2>
         <p>Si buscas un <strong>expansor de mangas industrial</strong> para <strong>agilizar el montaje de componentes elásticos</strong>, en EST Ingenieros desarrollamos proyectos a medida para mejorar la eficiencia, la seguridad y la integración de tu proceso productivo.</p>
       </section>
@@ -100,31 +90,19 @@
 
   <script src="../../assets/js/main.js" defer></script>
   <script>
-    const slideContainer = document.getElementById('carouselSlide');
-    const folderPath = 'Images/';
-    const totalImages = 10; 
-    let currentIndex = 0;
+    const galleryContainer = document.getElementById('galleryGrid');
+    const images = ["Images/PF3-001.webp", "Images/PF3-002.webp", "Images/PF3-003.webp", "Images/PF3-004.webp", "Images/PF3-005.webp", "Images/PF3-006.webp", "Images/PF3-007.webp", "Images/PF3-008.webp", "Images/PF3-009.webp", "Images/PF3-010.webp", "Images/PF3-011.png", "Images/PF3-012.png", "Images/PF3-013.png", "Images/PF3-014.png", "Images/PF3-015.png", "Images/PF3-016.png", "Images/PF3-017.png", "Images/PF3-018.png", "Images/PF3-019.png", "Images/PF3-020.png", "Images/PF3-021.png", "Images/PF3-022.png", "Images/PF3-023.png", "Images/PF3-024.png", "Images/PF3-025.png", "Images/PF3-026.png", "Images/PF3-027.png", "Images/PF3-028.png"];
 
-    function loadCarousel() {
-      for (let i = 1; i <= totalImages; i++) {
-        const img = document.createElement('img');
-        const imgNum = String(i).padStart(3, '0');
-        img.src = `${folderPath}PF3-${imgNum}.webp`;
-        img.onerror = function() { this.style.display = 'none'; };
-        slideContainer.appendChild(img);
-      }
+    if (galleryContainer && typeof openLightbox === 'function') {
+        images.forEach((src, index) => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.className = 'gallery-item';
+            img.onclick = () => openLightbox(images, index);
+            img.onerror = function () { this.style.display = 'none'; };
+            galleryContainer.appendChild(img);
+        });
     }
-
-    function moveSlide(direction) {
-      const slides = slideContainer.querySelectorAll('img');
-      const activeSlides = Array.from(slides).filter(img => img.style.display !== 'none');
-      if(activeSlides.length === 0) return;
-      currentIndex = (currentIndex + direction + activeSlides.length) % activeSlides.length;
-      slideContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-    }
-
-    loadCarousel();
-    setInterval(() => moveSlide(1), 5000);
   </script>
 </body>
 </html>

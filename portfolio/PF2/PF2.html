@@ -23,19 +23,12 @@
   <link rel="stylesheet" href="../../assets/css/global.css">
 
   <style>
-    /* Estilos exclusivos del carrusel y sidebar que no están en el global */
+    /* Estilos exclusivos del sidebar que no están en el global */
     .project-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 50px; }
     .feature-list { list-style: none; padding: 0; }
     .feature-list li { margin-bottom: 15px; padding-left: 25px; position: relative; }
     .feature-list li::before { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--primary); position: absolute; left: 0; }
     
-    .carousel-container { position: relative; width: 100%; margin: 30px 0; overflow: hidden; border-radius: 8px; border: 1px solid #eee; background: #fff; aspect-ratio: 16/9; }
-    .carousel-slide { display: flex; transition: transform 0.5s ease-in-out; height: 100%; }
-    .carousel-slide img { width: 100%; height: 100%; object-fit: contain; flex-shrink: 0; }
-    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; padding: 15px 10px; cursor: pointer; z-index: 10; }
-    .carousel-btn:hover { background: var(--primary); }
-    .carousel-btn.next { right: 0; }
-
     @media (max-width: 800px) { .project-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -46,7 +39,7 @@
   <main class="wrap">
     <header class="project-header">
       <div class="muted" style="font-size: 13px; margin-bottom: 10px;">
-        <a href="../index.html"">← VOLVER A PROYECTOS</a> / ARTES GRÁFICAS
+        <a href="../index.html">← VOLVER A PROYECTOS</a> / ARTES GRÁFICAS
       </div>
       <h1 class="h1">Transportador Sincronizado para Serigrafía</h1>
       <p class="lead">Modernización de salida de túnel con control por encoder y succión.</p>
@@ -70,11 +63,9 @@
           <li><strong>Ergonomía:</strong> Mesa abatible para facilitar el acceso a la máquina principal.</li>
         </ul>
 
-        <div class="carousel-container">
-          <div class="carousel-slide" id="carouselSlide"></div>
-          <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
-          <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
-        </div>
+        <h2 class="h2">Galería de Detalles</h2>
+        <div class="gallery-grid" id="galleryGrid"></div>
+
         <h2 class="h2">Solicita tu proyecto</h2>
         <p>Si buscas un <strong>sistema de transporte sincronizado para serigrafía</strong> para <strong>mejorar la precisión en el marcado de piezas</strong>, en EST Ingenieros desarrollamos proyectos a medida para mejorar la eficiencia, la seguridad y la integración de tu proceso productivo.</p>
       </section>
@@ -86,9 +77,9 @@
           <div class="tech-item"><span class="tech-label">Extra</span><div class="tech-value">Succión por Vacío</div></div>
           <div class="tech-item"><span class="tech-label">Año</span><div class="tech-value">2025</div></div>
           
-          <div class="cta-box" style="background: var(--primary); color: white; border: none;">
+          <div class="cta-box" style="background: var(--primary); color: white; border: none; padding: 25px; border-radius: 8px; text-align: center;">
             <p style="margin-bottom: 10px; font-weight: 600;">¿Buscas una solución similar?</p>
-            <a href="../../contacto.html""" class="btn-primary" style="background: white; color: black; width: 100%; text-align: center;">Contactar</a>
+            <a href="../../contacto.html" class="btn-primary" style="background: white; color: black; width: 100%; text-align: center;">Contactar</a>
           </div>
         </div>
       </aside>
@@ -99,30 +90,19 @@
 
   <script src="../../assets/js/main.js" defer></script>
   <script>
-    // Lógica específica del carrusel de imágenes
-    const slideContainer = document.getElementById('carouselSlide');
-    const folderPath = 'Images/';
-    const totalImages = 10; 
-    let currentIndex = 0;
+    const galleryContainer = document.getElementById('galleryGrid');
+    const images = ["Images/PF2-001.webp", "Images/PF2-002.webp", "Images/PF2-003.webp", "Images/PF2-004.webp", "Images/PF2-005.webp", "Images/PF2-006.webp", "Images/PF2-007.webp", "Images/PF2-008.webp", "Images/PF2-009.webp", "Images/PF2-010.webp", "Images/PF2-011.png", "Images/PF2-012.png", "Images/PF2-013.png", "Images/PF2-014.png", "Images/PF2-015.png", "Images/PF2-016.png", "Images/PF2-017.png", "Images/PF2-018.png", "Images/PF2-019.png", "Images/PF2-020.png", "Images/PF2-021.png", "Images/PF2-022.png", "Images/PF2-023.png", "Images/PF2-024.png", "Images/PF2-025.png", "Images/PF2-026.png", "Images/PF2-027.png", "Images/PF2-028.png"];
 
-    function loadCarousel() {
-      for (let i = 1; i <= totalImages; i++) {
-        const img = document.createElement('img');
-        const imgNum = String(i).padStart(3, '0');
-        img.src = `${folderPath}PF2-${imgNum}.webp`;
-        slideContainer.appendChild(img);
-      }
+    if (galleryContainer && typeof openLightbox === 'function') {
+        images.forEach((src, index) => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.className = 'gallery-item';
+            img.onclick = () => openLightbox(images, index);
+            img.onerror = function () { this.style.display = 'none'; };
+            galleryContainer.appendChild(img);
+        });
     }
-
-    function moveSlide(direction) {
-      const slides = document.querySelectorAll('.carousel-slide img');
-      if(slides.length === 0) return;
-      currentIndex = (currentIndex + direction + slides.length) % slides.length;
-      slideContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-    }
-
-    loadCarousel();
-    setInterval(() => moveSlide(1), 5000); 
   </script>
 </body>
 </html>

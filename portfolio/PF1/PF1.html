@@ -24,12 +24,6 @@
 
   <style>
     /* Estilos exclusivos del carrusel de este proyecto */
-    .carousel-container { position: relative; width: 100%; margin: 30px 0; overflow: hidden; border-radius: 8px; border: 1px solid #eee; background: #fff; aspect-ratio: 16/9; }
-    .carousel-slide { display: flex; transition: transform 0.5s ease-in-out; height: 100%; }
-    .carousel-slide img { width: 100%; height: 100%; object-fit: contain; flex-shrink: 0; }
-    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; padding: 15px 10px; cursor: pointer; z-index: 10; }
-    .carousel-btn.next { right: 0; }
-    .carousel-btn:hover { background: var(--primary); }
   </style>
 </head>
 <body>
@@ -75,11 +69,7 @@
         <p>Gracias a la automatización del ciclo de corte, se logró cuaduplicar la producción por hora, garantizando que cada burlete sea idéntico al anterior.</p>
 
         <h2 class="h2">Galería Técnica</h2>
-        <div class="carousel-container">
-          <div class="carousel-slide" id="carouselSlide"></div>
-          <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
-          <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
-        </div>
+        <div class="gallery-grid" id="galleryGrid"></div>
         <h2 class="h2">Solicita tu proyecto</h2>
         <p>Si buscas una <strong>solución de corte automático de burletes</strong> para <strong>optimizar tu producción de componentes</strong>, en EST Ingenieros desarrollamos proyectos a medida para mejorar la eficiencia, la seguridad y la integración de tu proceso productivo.</p>
       </section>
@@ -104,30 +94,19 @@
 
   <script src="../../assets/js/main.js" defer></script>
   <script>
-    // Configuración específica del carrusel
-    const slideContainer = document.getElementById('carouselSlide');
-    const folderPath = 'Images/';
-    const totalImages = 12; 
-    let currentIndex = 0;
+    const galleryContainer = document.getElementById('galleryGrid');
+    const images = ["Images/PF1-001.webp", "Images/PF1-002.webp", "Images/PF1-003.webp", "Images/PF1-004.webp", "Images/PF1-005.webp", "Images/PF1-006.webp", "Images/PF1-007.webp", "Images/PF1-008.webp", "Images/PF1-009.webp", "Images/PF1-010.webp", "Images/PF1-011.webp", "Images/PF1-012.webp", "Images/PF1-013.png", "Images/PF1-014.png", "Images/PF1-015.png", "Images/PF1-016.png", "Images/PF1-017.png", "Images/PF1-018.png", "Images/PF1-019.png", "Images/PF1-020.png", "Images/PF1-021.png", "Images/PF1-022.png", "Images/PF1-023.png", "Images/PF1-024.png", "Images/PF1-025.png", "Images/PF1-026.png", "Images/PF1-027.png", "Images/PF1-028.png", "Images/PF1-029.png", "Images/PF1-030.png", "Images/PF1-031.png", "Images/PF1-032.png", "Images/PF1-033.png", "Images/PF1-034.png", "Images/PF1-035.png", "Images/PF1-036.png", "Images/PF1-037.png"];
 
-    function loadCarousel() {
-      for (let i = 1; i <= totalImages; i++) {
-        const img = document.createElement('img');
-        const imgNum = String(i).padStart(3, '0');
-        img.src = `${folderPath}PF1-${imgNum}.webp`;
-        slideContainer.appendChild(img);
-      }
+    if (galleryContainer && typeof openLightbox === 'function') {
+        images.forEach((src, index) => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.className = 'gallery-item';
+            img.onclick = () => openLightbox(images, index);
+            img.onerror = function () { this.style.display = 'none'; };
+            galleryContainer.appendChild(img);
+        });
     }
-
-    function moveSlide(direction) {
-      const slides = document.querySelectorAll('.carousel-slide img');
-      if(slides.length === 0) return;
-      currentIndex = (currentIndex + direction + slides.length) % slides.length;
-      slideContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-    }
-
-    loadCarousel();
-    setInterval(() => moveSlide(1), 5000);
   </script>
 </body>
 </html>
